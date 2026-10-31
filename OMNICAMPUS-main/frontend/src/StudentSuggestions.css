@@ -1,0 +1,261 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600;1,700&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+.student-suggestions-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f7f9fc;
+  color: #0b1d3a;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.student-suggestions-page * {
+  box-sizing: border-box;
+}
+
+/* HEADER */
+
+.student-suggestions-header {
+  padding: 22px 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: #fff;
+  border-bottom: 1px solid #e6eaf0;
+}
+
+.student-suggestions-logo {
+  border: 0;
+  background: transparent;
+  color: #0b1d3a;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 33px;
+  font-weight: 700;
+  font-style: italic;
+  cursor: pointer;
+}
+
+.student-suggestions-logo span,
+.student-suggestions-footer strong span {
+  color: #3568d4;
+}
+
+.student-suggestions-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border: 1px solid #dce4ef;
+  border-radius: 9px;
+  background: #fff;
+  color: #18345b;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.student-suggestions-back:hover {
+  background: #f0f5ff;
+}
+
+/* MAIN */
+
+.student-suggestions-main {
+  flex: 1;
+  width: min(900px, 88%);
+  margin: 0 auto;
+  padding: 70px 0 90px;
+}
+
+.student-suggestions-heading {
+  margin-bottom: 35px;
+}
+
+.student-suggestions-kicker {
+  display: block;
+  margin-bottom: 17px;
+  color: #3568d4;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.7px;
+}
+
+.student-suggestions-heading h1 {
+  margin: 0 0 15px;
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 800;
+  letter-spacing: -1.5px;
+}
+
+.student-suggestions-heading h1 em {
+  color: #3568d4;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.15em;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.student-suggestions-heading p {
+  margin: 0;
+  color: #64748b;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+/* SUGGESTION CARD */
+
+.student-suggestions-card {
+  padding: 35px;
+  border: 1px solid #e4eaf3;
+  border-radius: 17px;
+  background: #fff;
+  box-shadow: 0 10px 35px rgba(11, 29, 58, 0.04);
+}
+
+.student-suggestions-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 25px;
+  border-radius: 12px;
+  background: #eaf1ff;
+  color: #3568d4;
+}
+
+.student-suggestions-card label {
+  display: block;
+  margin-bottom: 13px;
+  color: #263a59;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.student-suggestions-card textarea {
+  width: 100%;
+  min-height: 175px;
+  padding: 18px;
+  border: 1px solid #dce3ed;
+  border-radius: 10px;
+  background: #fbfcfe;
+  color: #0b1d3a;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.8;
+  resize: vertical;
+  outline: none;
+}
+
+.student-suggestions-card textarea:focus {
+  border-color: #3568d4;
+  box-shadow: 0 0 0 3px rgba(53, 104, 212, 0.1);
+}
+
+.student-suggestions-card textarea::placeholder {
+  color: #9ba9bc;
+}
+
+.student-suggestions-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-top: 18px;
+}
+
+.student-suggestions-bottom > span {
+  color: #94a3b8;
+  font-size: 12px;
+}
+
+.student-suggestions-bottom button {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 14px 22px;
+  border: none;
+  border-radius: 9px;
+  background: #0b1d3a;
+  color: #fff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.student-suggestions-bottom button:hover {
+  background: #173a6e;
+}
+
+.student-suggestions-message {
+  margin: 18px 0 0;
+  color: #3568d4;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* FOOTER */
+
+.student-suggestions-footer {
+  padding: 27px 7%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  flex-wrap: wrap;
+  border-top: 1px solid #e4eaf3;
+  background: #fff;
+  color: #7c899b;
+  font-size: 12px;
+}
+
+.student-suggestions-footer strong {
+  color: #0b1d3a;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 26px;
+  font-style: italic;
+}
+
+/* MOBILE */
+
+@media (max-width: 768px) {
+  .student-suggestions-header {
+    padding: 18px 5%;
+  }
+
+  .student-suggestions-logo {
+    font-size: 27px;
+  }
+
+  .student-suggestions-back {
+    padding: 9px 11px;
+    font-size: 12px;
+  }
+
+  .student-suggestions-main {
+    width: 90%;
+    padding: 45px 0 65px;
+  }
+
+  .student-suggestions-card {
+    padding: 23px;
+  }
+
+  .student-suggestions-bottom {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .student-suggestions-bottom button {
+    justify-content: center;
+  }
+
+  .student-suggestions-footer {
+    flex-direction: column;
+    text-align: center;
+  }
+}

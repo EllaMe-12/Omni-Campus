@@ -1,0 +1,737 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+/* =========================================
+   OMNICAMPUS — STUDENT LOGIN
+========================================= */
+
+.student-auth-page {
+  min-height: 100vh;
+  width: 100%;
+  background: #f3f6fb;
+  color: #0b1d3a;
+  font-family: 'DM Sans', Arial, sans-serif;
+}
+
+.student-auth-page *,
+.student-auth-page *::before,
+.student-auth-page *::after {
+  box-sizing: border-box;
+}
+
+.student-auth-page button,
+.student-auth-page input {
+  font-family: inherit;
+}
+
+.student-auth-shell {
+  display: grid;
+  grid-template-columns: 48% 52%;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* =========================================
+   LEFT BRAND PANEL
+========================================= */
+
+.student-brand-panel {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 42px 9%;
+  background-color: #0b1d3a;
+  background-image:
+    linear-gradient(
+      135deg,
+      rgba(7, 22, 45, 0.96) 0%,
+      rgba(11, 29, 58, 0.88) 52%,
+      rgba(11, 29, 58, 0.73) 100%
+    ),
+    url('/images/login-background.jpg');
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+}
+
+.student-brand-panel::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: radial-gradient(
+    circle at 60% 40%,
+    rgba(75, 126, 224, 0.14),
+    transparent 55%
+  );
+  pointer-events: none;
+}
+
+.student-brand-header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+}
+
+.student-brand-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 42px;
+  font-weight: 600;
+  font-style: italic;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.student-brand-edition {
+  color: #a9c3f3;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.23em;
+}
+
+/* NETWORK ILLUSTRATION */
+
+.student-visual {
+  position: absolute;
+  z-index: 1;
+  top: 28%;
+  left: 0;
+  width: 100%;
+  padding: 0 5%;
+  opacity: 0.8;
+  transition: transform 0.25s ease-out;
+  pointer-events: none;
+}
+
+.student-network {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.student-network-line {
+  stroke: rgba(170, 200, 255, 0.65);
+  stroke-width: 1.6;
+}
+
+.student-network-secondary {
+  stroke: rgba(170, 200, 255, 0.3);
+  stroke-dasharray: 5 7;
+}
+
+.student-node {
+  fill: #a9c8ff;
+  stroke: rgba(255, 255, 255, 0.6);
+  stroke-width: 2;
+}
+
+.student-center-ring {
+  fill: rgba(53, 104, 212, 0.15);
+  stroke: #92b7ff;
+  stroke-width: 1.7;
+}
+
+.student-center-node {
+  fill: #ffffff;
+}
+
+/* BRAND TEXT */
+
+.student-brand-content {
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  padding-bottom: 55px;
+}
+
+.student-section-index {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  color: #a8c5ff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+
+.student-index-line {
+  width: 27px;
+  height: 2px;
+  background: #79a7ff;
+}
+
+.student-brand-content h2 {
+  margin: 0 0 22px;
+  font-size: clamp(31px, 3.3vw, 49px);
+  font-weight: 600;
+  line-height: 1.17;
+  letter-spacing: -0.055em;
+}
+
+.student-brand-content h2 em {
+  color: #c2d7ff;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.12em;
+  font-weight: 500;
+}
+
+.student-brand-content p {
+  max-width: 430px;
+  margin: 0;
+  color: #d1ddf0;
+  font-size: 13px;
+  line-height: 1.9;
+}
+
+.student-brand-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  color: #c4d4ed;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.student-footer-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #8cb4ff;
+}
+
+/* =========================================
+   RIGHT FORM PANEL
+========================================= */
+
+.student-form-panel {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 100vh;
+  padding: 34px clamp(28px, 5vw, 75px) 25px;
+  background: #ffffff;
+}
+
+/* TOP NAVIGATION */
+
+.student-form-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.student-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 0;
+  border: none;
+  background: transparent;
+  color: #59677c;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.student-back-button:hover {
+  color: #3568d4;
+}
+
+.student-secure-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #66758c;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+}
+
+.student-secure-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #3568d4;
+}
+
+/* FORM CONTENT */
+
+.student-form-content {
+  width: 100%;
+  max-width: 430px;
+  margin: auto;
+  padding: 40px 0;
+}
+
+.student-form-intro {
+  margin-bottom: 29px;
+}
+
+.student-form-kicker {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 19px;
+  color: #3568d4;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.student-form-intro h1 {
+  margin: 0 0 13px;
+  color: #0b1d3a;
+  font-size: clamp(34px, 3.4vw, 47px);
+  font-weight: 700;
+  letter-spacing: -0.065em;
+  line-height: 1.12;
+}
+
+.student-form-intro h1 em {
+  color: #3568d4;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.15em;
+  font-weight: 600;
+}
+
+.student-form-intro p {
+  max-width: 380px;
+  margin: 0;
+  color: #718096;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* =========================================
+   SIGN IN / REGISTER TABS
+========================================= */
+
+.student-auth-tabs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 5px;
+  margin-bottom: 27px;
+  padding: 5px;
+  border: 1px solid #e6ebf2;
+  border-radius: 10px;
+  background: #f3f6fa;
+}
+
+.student-auth-tabs button {
+  min-height: 43px;
+  padding: 10px;
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: #778398;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.student-auth-tabs button.active {
+  background: #ffffff;
+  color: #0b1d3a;
+  box-shadow: 0 2px 9px rgba(11, 29, 58, 0.09);
+}
+
+.student-auth-tabs button:not(.active):hover {
+  color: #3568d4;
+}
+
+/* =========================================
+   FORM FIELDS
+========================================= */
+
+.student-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+}
+
+.student-field {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.student-field label {
+  color: #172b4a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.student-field input {
+  width: 100%;
+  height: 49px;
+  padding: 0 15px;
+  border: 1px solid #dce3ed;
+  border-radius: 8px;
+  outline: none;
+  background: #f9fbfd;
+  color: #0b1d3a;
+  font-size: 13px;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s,
+    background 0.2s;
+}
+
+.student-field input::placeholder {
+  color: #a1acbb;
+}
+
+.student-field input:focus {
+  border-color: #3568d4;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(53, 104, 212, 0.11);
+}
+
+.student-field small {
+  color: #8290a3;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+.student-field-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.student-text-button {
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #3568d4;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.student-text-button:hover {
+  text-decoration: underline;
+}
+
+/* PASSWORD VISIBILITY */
+
+.student-password-wrap {
+  position: relative;
+}
+
+.student-password-wrap input {
+  padding-right: 48px;
+}
+
+.student-show-password {
+  position: absolute;
+  top: 50%;
+  right: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  transform: translateY(-50%);
+  border: none;
+  background: transparent;
+  color: #8995a7;
+  cursor: pointer;
+}
+
+.student-show-password:hover {
+  color: #3568d4;
+}
+
+/* =========================================
+   SUBMIT BUTTON
+========================================= */
+
+.student-signin-button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  width: 100%;
+  min-height: 51px;
+  margin-top: 5px;
+  padding: 0 19px;
+  border: none;
+  border-radius: 8px;
+  background: #0b1d3a;
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    transform 0.2s,
+    box-shadow 0.2s;
+}
+
+.student-signin-button:hover {
+  background: #244a83;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(11, 29, 58, 0.16);
+}
+
+.student-signin-button:active {
+  transform: translateY(0);
+}
+
+/* VALIDATION MESSAGE */
+
+.student-form-message {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid #d6e3f8;
+  border-radius: 8px;
+  background: #eff5ff;
+  color: #24519d;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* REGISTER LINK */
+
+.student-register-section {
+  margin-top: 25px;
+  padding-top: 21px;
+  border-top: 1px solid #e7ecf3;
+  text-align: center;
+}
+
+.student-register-section p {
+  margin: 0;
+  color: #7a879a;
+  font-size: 12px;
+}
+
+.student-register-section button {
+  padding: 0 0 0 4px;
+  border: none;
+  background: transparent;
+  color: #3568d4;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.student-register-section button:hover {
+  text-decoration: underline;
+}
+
+/* FOOTER */
+
+.student-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 18px;
+  border-top: 1px solid #edf0f5;
+  color: #9aa5b5;
+  font-size: 10px;
+}
+
+/* =========================================
+   RESPONSIVE — TABLET
+========================================= */
+
+@media (max-width: 900px) {
+  .student-auth-shell {
+    grid-template-columns: 43% 57%;
+  }
+
+  .student-brand-panel {
+    padding: 35px 7%;
+  }
+
+  .student-brand-name {
+    font-size: 35px;
+  }
+
+  .student-brand-content h2 {
+    font-size: 32px;
+  }
+
+  .student-form-panel {
+    padding: 28px 30px 22px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE — MOBILE
+========================================= */
+
+@media (max-width: 700px) {
+  .student-auth-shell {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .student-brand-panel {
+    min-height: 235px;
+    padding: 25px 24px;
+  }
+
+  .student-brand-header {
+    gap: 5px;
+  }
+
+  .student-brand-name {
+    font-size: 34px;
+  }
+
+  .student-brand-edition {
+    font-size: 9px;
+  }
+
+  .student-visual {
+    top: 10%;
+    left: 30%;
+    width: 80%;
+    opacity: 0.35;
+  }
+
+  .student-brand-content {
+    margin-top: 35px;
+    padding-bottom: 0;
+  }
+
+  .student-section-index {
+    margin-bottom: 10px;
+    font-size: 8px;
+  }
+
+  .student-brand-content h2 {
+    margin-bottom: 0;
+    font-size: 27px;
+  }
+
+  .student-brand-content p,
+  .student-brand-footer {
+    display: none;
+  }
+
+  .student-form-panel {
+    min-height: calc(100vh - 235px);
+    padding: 24px 22px;
+  }
+
+  .student-form-content {
+    max-width: 430px;
+    padding: 35px 0;
+  }
+
+  .student-form-intro h1 {
+    font-size: 37px;
+  }
+
+  .student-form-footer {
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 380px) {
+  .student-form-panel {
+    padding: 20px 16px;
+  }
+
+  .student-secure-indicator {
+    font-size: 8px;
+  }
+
+  .student-form-intro h1 {
+    font-size: 33px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .student-visual,
+  .student-signin-button,
+  .student-auth-tabs button {
+    transition: none;
+  }
+}
+
+/* =========================================
+   RESTORE ORIGINAL STUDENT LOGIN SIZE
+========================================= */
+
+.student-auth-page {
+  min-height: 100vh;
+  padding: 26px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #071a35;
+}
+
+.student-auth-shell {
+  width: min(1200px, 100%);
+  height: calc(100vh - 52px);
+  min-height: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.student-brand-panel {
+  min-height: 0;
+  height: 100%;
+}
+
+.student-form-panel {
+  min-height: 0;
+  height: 100%;
+  overflow-y: auto;
+}
+
+/* MOBILE */
+@media (max-width: 700px) {
+  .student-auth-page {
+    padding: 12px;
+    align-items: flex-start;
+  }
+
+  .student-auth-shell {
+    height: auto;
+    min-height: calc(100vh - 24px);
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+  }
+
+  .student-brand-panel {
+    height: auto;
+    min-height: 235px;
+  }
+
+  .student-form-panel {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+}

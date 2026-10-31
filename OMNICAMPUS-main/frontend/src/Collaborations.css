@@ -1,0 +1,740 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600;1,700&family=DM+Sans:wght@400;500;600;700;800&display=swap");
+
+.occ-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f8fafc;
+  color: #0b1d3a;
+  font-family: "DM Sans", sans-serif;
+}
+
+.occ-page * {
+  box-sizing: border-box;
+}
+
+.occ-page button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.occ-header {
+  background: #fff;
+  border-bottom: 1px solid #e5eaf1;
+}
+
+.occ-header-inner {
+  max-width: 1500px;
+  min-height: 83px;
+  margin: auto;
+  padding: 16px clamp(22px, 5vw, 80px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.occ-logo {
+  border: none;
+  background: transparent;
+  color: #0b1d3a;
+  font-family: "Cormorant Garamond", Georgia, serif !important;
+  font-size: 37px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+.occ-logo span {
+  font: inherit;
+}
+
+.occ-back {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 15px;
+  border: 1px solid #dce4ef;
+  border-radius: 9px;
+  background: white;
+  color: #34465e;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.occ-main {
+  width: 100%;
+  max-width: 1450px;
+  flex: 1;
+  margin: auto;
+  padding: 54px clamp(22px, 5vw, 80px) 85px;
+}
+
+.occ-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 30px;
+}
+
+.occ-eyebrow {
+  color: #3568d4;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .16em;
+}
+
+.occ-heading h1 {
+  margin: 12px 0 10px;
+  font-size: clamp(35px, 4vw, 49px);
+  letter-spacing: -1.7px;
+}
+
+.occ-heading p,
+.occ-section-heading p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.occ-primary,
+.occ-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 13px 19px;
+  border-radius: 9px;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.occ-primary {
+  border: 1px solid #3568d4;
+  background: #3568d4;
+  color: white;
+}
+
+.occ-primary:hover {
+  background: #2455b9;
+}
+
+.occ-secondary {
+  border: 1px solid #dce4ef;
+  background: white;
+  color: #34465e;
+}
+
+.occ-hero {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 35px;
+  border-radius: 19px;
+  background: #0b1d3a;
+  color: white;
+}
+
+.occ-hero-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 76px;
+  height: 76px;
+  border-radius: 17px;
+  background: rgba(255,255,255,.1);
+  color: #b9cfff;
+}
+
+.occ-hero span {
+  color: #adc6fa;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .14em;
+}
+
+.occ-hero h2 {
+  margin: 9px 0;
+  font-size: clamp(23px, 3vw, 32px);
+}
+
+.occ-hero p {
+  margin: 0;
+  color: #c8d5e8;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.occ-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 14px 17px;
+  border: 1px solid #cce9df;
+  border-radius: 10px;
+  background: #f0fbf7;
+  color: #16654d;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.occ-message button {
+  margin-left: auto;
+  border: 0;
+  background: transparent;
+  color: inherit;
+}
+
+.occ-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 42px 0 29px;
+  border-bottom: 1px solid #dfe6f0;
+}
+
+.occ-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 23px;
+}
+
+.occ-tabs button {
+  padding: 0 0 15px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: #738197;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.occ-tabs button.active {
+  border-bottom-color: #3568d4;
+  color: #0b1d3a;
+}
+
+.occ-search {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 245px;
+  margin-bottom: 10px;
+  padding: 11px 13px;
+  border: 1px solid #dce4ef;
+  border-radius: 9px;
+  background: white;
+  color: #8795a8;
+}
+
+.occ-search input {
+  width: 100%;
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: #0b1d3a;
+  font: inherit;
+  font-size: 12px;
+}
+
+.occ-section-heading {
+  margin-bottom: 24px;
+}
+
+.occ-section-heading h2 {
+  margin: 0 0 9px;
+  font-size: 24px;
+  letter-spacing: -.6px;
+}
+
+.occ-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.occ-card {
+  display: flex;
+  flex-direction: column;
+  padding: 27px;
+  border: 1px solid #e0e7f0;
+  border-radius: 16px;
+  background: rgba(255,255,255,.92);
+}
+
+.occ-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.occ-card-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 11px;
+  background: #edf3ff;
+  color: #3568d4;
+}
+
+.occ-card-label {
+  padding: 7px 10px;
+  border-radius: 30px;
+  background: #f1f5fa;
+  color: #526783;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.occ-card h3 {
+  margin: 0 0 11px;
+  font-size: 19px;
+  line-height: 1.4;
+}
+
+.occ-location {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.occ-card-description {
+  flex: 1;
+  margin: 17px 0 24px;
+  color: #64748b;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+.occ-card-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 13px;
+  border: 1px solid #d5e2fa;
+  border-radius: 9px;
+  background: #eef4ff;
+  color: #3568d4;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.occ-card-button:hover {
+  background: #dfeaff;
+}
+
+.occ-institution {
+  margin: 0;
+  color: #3568d4;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.occ-opportunity-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #edf0f5;
+}
+
+.occ-opportunity-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  font-size: 11px;
+}
+
+.occ-request-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.occ-request {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  padding: 21px;
+  border: 1px solid #e0e7f0;
+  border-radius: 13px;
+  background: white;
+}
+
+.occ-request-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 47px;
+  height: 47px;
+  border-radius: 11px;
+  background: #edf3ff;
+  color: #3568d4;
+}
+
+.occ-request-info {
+  flex: 1;
+}
+
+.occ-request-info h3 {
+  margin: 0 0 6px;
+  font-size: 14px;
+}
+
+.occ-request-info p {
+  margin: 0;
+  color: #718096;
+  font-size: 11px;
+}
+
+.occ-pending {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 11px;
+  border-radius: 30px;
+  background: #fff5e6;
+  color: #986119;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.occ-empty,
+.occ-empty-state {
+  padding: 45px 25px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 15px;
+  color: #64748b;
+  text-align: center;
+}
+
+.occ-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.occ-empty-state h3 {
+  margin: 0;
+  color: #0b1d3a;
+}
+
+.occ-empty-state p {
+  margin: 0 0 8px;
+  font-size: 13px;
+}
+
+.occ-demo-note {
+  margin-top: 40px;
+  color: #7b889b;
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.occ-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(7, 22, 45, .65);
+}
+
+.occ-modal {
+  width: 100%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 30px;
+  border-radius: 18px;
+  background: white;
+  box-shadow: 0 25px 80px rgba(0,0,0,.18);
+}
+
+.occ-modal-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.occ-modal-heading h2 {
+  margin: 9px 0 0;
+  font-size: 25px;
+}
+
+.occ-close {
+  display: grid;
+  place-items: center;
+  width: 35px;
+  height: 35px;
+  border: 1px solid #e0e7f0;
+  border-radius: 9px;
+  background: white;
+  color: #64748b;
+}
+
+.occ-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.occ-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  color: #43536b;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.occ-field input,
+.occ-field select,
+.occ-field textarea {
+  width: 100%;
+  padding: 12px 13px;
+  border: 1px solid #dce4ef;
+  border-radius: 9px;
+  outline: none;
+  background: #fbfcff;
+  color: #0b1d3a;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.occ-field textarea {
+  resize: vertical;
+}
+
+.occ-field input:focus,
+.occ-field select:focus,
+.occ-field textarea:focus {
+  border-color: #3568d4;
+}
+
+.occ-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.occ-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.occ-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 27px clamp(22px, 5vw, 80px);
+  border-top: 1px solid #e5eaf1;
+  background: white;
+  color: #8390a1;
+  font-size: 11px;
+}
+
+.occ-footer strong {
+  color: #0b1d3a;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 27px;
+  font-style: italic;
+}
+
+@media (max-width: 800px) {
+  .occ-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .occ-grid,
+  .occ-form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .occ-toolbar {
+    align-items: stretch;
+  }
+
+  .occ-search {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .occ-main {
+    padding-top: 35px;
+  }
+
+  .occ-hero {
+    align-items: flex-start;
+    flex-direction: column;
+    padding: 25px;
+  }
+
+  .occ-card,
+  .occ-modal {
+    padding: 20px;
+  }
+
+  .occ-request {
+    flex-wrap: wrap;
+  }
+
+  .occ-pending {
+    margin-left: 64px;
+  }
+
+  .occ-logo {
+    font-size: 30px;
+  }
+}
+
+/* Collaboration invitations */
+
+.occ-invitation-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.occ-accept-btn,
+.occ-reject-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 17px;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.occ-accept-btn {
+  background: #e8f7ee;
+  border: 1px solid #b8e4c8;
+  color: #217a43;
+}
+
+.occ-accept-btn:hover {
+  background: #d4f0df;
+}
+
+.occ-reject-btn {
+  background: #fff0f0;
+  border: 1px solid #f0c5c5;
+  color: #b63838;
+}
+
+.occ-reject-btn:hover {
+  background: #ffe0e0;
+}
+
+.occ-status-accepted,
+.occ-status-rejected {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 13px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.occ-status-accepted {
+  background: #e8f7ee;
+  color: #217a43;
+}
+
+.occ-status-rejected {
+  background: #fff0f0;
+  color: #b63838;
+}
+
+@media (max-width: 600px) {
+  .occ-invitation-actions {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .occ-accept-btn,
+  .occ-reject-btn {
+    flex: 1;
+  }
+}
+
+/* Background images for collaboration opportunities */
+
+.occ-opportunity-image-card {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.occ-opportunity-image-card h3 {
+  color: #ffffff;
+}
+
+.occ-opportunity-image-card .occ-institution {
+  color: #b9cfff;
+}
+
+.occ-opportunity-image-card .occ-card-description,
+.occ-opportunity-image-card .occ-opportunity-meta span {
+  color: #e2e8f0;
+}
+
+.occ-opportunity-image-card .occ-card-label {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+}
+
+.occ-opportunity-image-card .occ-card-icon {
+  background: rgba(255, 255, 255, 0.14);
+  color: #ffffff;
+}
+
+.occ-opportunity-image-card .occ-opportunity-meta {
+  border-top-color: rgba(255, 255, 255, 0.2);
+}
+/* Make all Collaborations page text italic */
+
+.occ-page,
+.occ-page h1,
+.occ-page h2,
+.occ-page h3,
+.occ-page p,
+.occ-page span,
+.occ-page button,
+.occ-page input,
+.occ-page textarea,
+.occ-page select,
+.occ-page label {
+  font-style: italic;
+}

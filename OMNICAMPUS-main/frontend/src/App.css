@@ -1,0 +1,1188 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+/* =====================================
+   GLOBAL
+===================================== */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  background: #f4f5f7;
+}
+
+/* =====================================
+   ORIGINAL INTRO — UNCHANGED
+===================================== */
+
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0b1d3a;
+  overflow: hidden;
+}
+
+.intro-brand {
+  position: relative;
+}
+
+.intro-title {
+  margin: 0;
+  padding: 0 16px;
+  color: #ffffff;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(3.5rem, 11vw, 8rem);
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  animation: nameEmerge 1.5s ease-out forwards;
+}
+
+@keyframes nameEmerge {
+  0% {
+    opacity: 0;
+    filter: blur(18px);
+    transform: translateY(35px) scale(0.92);
+  }
+
+  50% {
+    opacity: 0.55;
+    filter: blur(8px);
+    transform: translateY(15px) scale(0.97);
+  }
+
+  100% {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0) scale(1);
+  }
+}
+
+.intro-letter-i {
+  position: relative;
+  display: inline-block;
+}
+
+.flying-book {
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 0.23em;
+  width: 40px;
+  height: 32px;
+  transform-origin: center;
+  opacity: 0;
+  pointer-events: none;
+  animation: bookFlight 3s cubic-bezier(0.22, 1, 0.36, 1)
+    1.3s forwards;
+}
+
+.flying-book svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes bookFlight {
+  0% {
+    opacity: 0;
+    transform: translate(65vw, -50vh) rotate(35deg) scale(1.8);
+  }
+
+  15% {
+    opacity: 1;
+  }
+
+  45% {
+    opacity: 1;
+    transform: translate(20vw, -22vh) rotate(-18deg) scale(1.3);
+  }
+
+  75% {
+    opacity: 1;
+    transform: translate(-50%, 0) rotate(5deg) scale(0.55);
+  }
+
+  90%,
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0) rotate(0deg) scale(0.22);
+  }
+}
+
+/* =====================================
+   NEW LOGIN PAGE
+===================================== */
+
+.oc-login-page {
+  min-height: 100vh;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Sans', Arial, sans-serif;
+  background:
+    radial-gradient(circle at 5% 5%, #ffffff 0%, transparent 40%),
+    linear-gradient(135deg, #eef0f3, #dfe3e9);
+  animation: ocPageEnter 0.75s ease-out;
+}
+
+@keyframes ocPageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.oc-login-shell {
+  width: min(1180px, 100%);
+  min-height: 710px;
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow:
+    0 25px 75px rgba(18, 32, 54, 0.12),
+    0 5px 20px rgba(18, 32, 54, 0.04);
+}
+
+/* =====================================
+   LEFT BRAND PANEL
+===================================== */
+
+.oc-brand-panel {
+  position: relative;
+  min-height: 710px;
+  padding: 36px 43px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+  color: #ffffff;
+  background:
+    linear-gradient(
+      145deg,
+      #0b1d3a 0%,
+      #172d4b 52%,
+      #455366 100%
+    );
+}
+
+.oc-brand-panel::before {
+  content: '';
+  position: absolute;
+  width: 440px;
+  height: 440px;
+  top: 9%;
+  right: -170px;
+  border-radius: 50%;
+  background: rgba(179, 190, 207, 0.07);
+  filter: blur(35px);
+  pointer-events: none;
+}
+
+.oc-brand-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.oc-brand-name {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 37px;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.oc-brand-edition {
+  color: #aebacc;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+/* =====================================
+   SUBTLE NETWORK ANIMATION
+===================================== */
+
+.oc-visual {
+  position: absolute;
+  inset: 120px 30px 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  transition: transform 0.45s ease-out;
+}
+
+.oc-network {
+  width: 100%;
+  max-width: 520px;
+  height: auto;
+  opacity: 0.8;
+}
+
+.oc-network-line {
+  stroke: #9baac0;
+  stroke-width: 1.15;
+  stroke-dasharray: 5 8;
+  opacity: 0.55;
+  animation: ocLineMove 24s linear infinite;
+}
+
+.oc-network-secondary {
+  opacity: 0.25;
+  animation-duration: 32s;
+}
+
+@keyframes ocLineMove {
+  to {
+    stroke-dashoffset: -260;
+  }
+}
+
+.oc-node {
+  fill: #c6d0de;
+  opacity: 0.75;
+  animation: ocNodePulse 4s ease-in-out infinite alternate;
+}
+
+.oc-node:nth-of-type(2) {
+  animation-delay: 1s;
+}
+
+.oc-node:nth-of-type(3) {
+  animation-delay: 2s;
+}
+
+.oc-center-ring {
+  stroke: rgba(235, 241, 249, 0.65);
+  stroke-width: 1;
+  fill: rgba(235, 241, 249, 0.05);
+}
+
+.oc-center-node {
+  fill: #ffffff;
+}
+
+@keyframes ocNodePulse {
+  from {
+    opacity: 0.35;
+  }
+
+  to {
+    opacity: 0.9;
+  }
+}
+
+/* =====================================
+   LEFT CONTENT
+===================================== */
+
+.oc-brand-content {
+  position: relative;
+  z-index: 2;
+  max-width: 490px;
+  margin-top: auto;
+  margin-bottom: 35px;
+  animation: ocContentEnter 0.9s ease-out 0.15s both;
+}
+
+@keyframes ocContentEnter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.oc-section-index {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 23px;
+  color: #b8c4d3;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.oc-index-line {
+  width: 30px;
+  height: 1px;
+  background: #b8c4d3;
+}
+
+.oc-brand-content h2 {
+  margin: 0;
+  font-size: clamp(31px, 3.3vw, 45px);
+  font-weight: 500;
+  line-height: 1.18;
+  letter-spacing: -0.045em;
+}
+
+.oc-brand-content h2 em {
+  color: #d8e0eb;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.16em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.oc-brand-content p {
+  max-width: 385px;
+  margin: 22px 0 0;
+  color: #bac6d6;
+  font-size: 13px;
+  line-height: 1.85;
+}
+
+.oc-brand-footer {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  color: #c2cbd8;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+}
+
+.oc-footer-dot {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #889bb3;
+}
+
+/* =====================================
+   RIGHT FORM PANEL
+===================================== */
+
+.oc-form-panel {
+  min-width: 0;
+  padding: 36px 49px 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      #f0f2f5,
+      transparent 42%
+    ),
+    #ffffff;
+}
+
+.oc-form-top,
+.oc-form-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  color: #929ba8;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+.oc-secure-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.oc-secure-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #708b7c;
+}
+
+.oc-form-content {
+  width: 100%;
+  max-width: 385px;
+  margin: 65px auto;
+  animation: ocFormEnter 0.85s ease-out 0.15s both;
+}
+
+@keyframes ocFormEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =====================================
+   WELCOME TEXT
+===================================== */
+
+.oc-form-kicker {
+  color: #768394;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.17em;
+}
+
+.oc-form-intro h1 {
+  margin: 17px 0 10px;
+  color: #171c25;
+  font-size: clamp(36px, 3.8vw, 48px);
+  font-weight: 600;
+  letter-spacing: -0.055em;
+  line-height: 1.1;
+}
+
+.oc-form-intro h1 em {
+  color: #0b1d3a;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.2em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.oc-form-intro p {
+  margin: 0 0 36px;
+  color: #7d8794;
+  font-size: 13px;
+  line-height: 1.8;
+}
+
+/* =====================================
+   FORM FIELDS
+===================================== */
+
+.oc-login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 23px;
+}
+
+.oc-field label {
+  display: block;
+  margin-bottom: 10px;
+  color: #333c49;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.oc-field-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.oc-input-container {
+  display: flex;
+  align-items: center;
+  border: 1px solid #d9dee6;
+  border-radius: 9px;
+  background: #fbfcfd;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease;
+}
+
+.oc-input-container:focus-within {
+  border-color: #5e7391;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(11, 29, 58, 0.08);
+}
+
+.oc-input-container input {
+  width: 100%;
+  min-width: 0;
+  padding: 16px 15px;
+  border: none;
+  outline: none;
+  border-radius: 9px;
+  background: transparent;
+  color: #171c25;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.oc-input-container input::placeholder {
+  color: #a1aab6;
+}
+
+.oc-text-button,
+.oc-show-password {
+  border: none;
+  background: transparent;
+  color: #536783;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.oc-text-button {
+  margin-bottom: 10px;
+}
+
+.oc-show-password {
+  padding: 0 15px;
+}
+
+.oc-text-button:hover,
+.oc-show-password:hover {
+  color: #0b1d3a;
+}
+
+/* =====================================
+   SIGN-IN BUTTON
+===================================== */
+
+.oc-signin-button {
+  width: 100%;
+  margin-top: 6px;
+  padding: 17px 19px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #0b1d3a;
+  border-radius: 9px;
+  background: #0b1d3a;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background 0.25s ease,
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.oc-signin-button:hover {
+  background: #203a5c;
+  transform: translateY(-2px);
+  box-shadow: 0 9px 22px rgba(11, 29, 58, 0.15);
+}
+
+.oc-signin-button:active {
+  transform: translateY(0);
+}
+
+.oc-button-arrow {
+  font-size: 21px;
+  font-weight: 400;
+  transition: transform 0.25s ease;
+}
+
+.oc-signin-button:hover .oc-button-arrow {
+  transform: translateX(4px);
+}
+
+.oc-form-message {
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid #dce2ea;
+  border-radius: 8px;
+  background: #f3f5f8;
+  color: #43536a;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* =====================================
+   REGISTRATION
+===================================== */
+
+.oc-register-section {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #e6e9ee;
+}
+
+.oc-register-section p {
+  margin: 0 0 10px;
+  color: #7d8794;
+  font-size: 12px;
+}
+
+.oc-register-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #0b1d3a;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.oc-register-link span {
+  font-size: 17px;
+  transition: transform 0.25s ease;
+}
+
+.oc-register-link:hover span {
+  transform: translate(3px, -3px);
+}
+
+.oc-form-footer {
+  padding-top: 20px;
+  border-top: 1px solid #e6e9ee;
+  letter-spacing: 0.04em;
+}
+
+/* =====================================
+   TABLET
+===================================== */
+
+@media (max-width: 900px) {
+  .oc-login-page {
+    padding: 16px;
+  }
+
+  .oc-login-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .oc-brand-panel {
+    min-height: 440px;
+    padding: 30px;
+  }
+
+  .oc-visual {
+    inset: 65px 20px 110px;
+    opacity: 0.6;
+  }
+
+  .oc-brand-content {
+    margin-bottom: 25px;
+  }
+
+  .oc-form-panel {
+    min-height: 650px;
+    padding: 32px;
+  }
+
+  .oc-form-content {
+    margin: 60px auto;
+  }
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media (max-width: 480px) {
+  .oc-login-page {
+    padding: 0;
+  }
+
+  .oc-login-shell {
+    border: none;
+    border-radius: 0;
+  }
+
+  .oc-brand-panel {
+    min-height: 350px;
+    padding: 25px;
+  }
+
+  .oc-brand-name {
+    font-size: 32px;
+  }
+
+  .oc-visual {
+    opacity: 0.3;
+  }
+
+  .oc-brand-content h2 {
+    font-size: 30px;
+  }
+
+  .oc-brand-content p {
+    font-size: 12px;
+  }
+
+  .oc-form-panel {
+    min-height: 630px;
+    padding: 28px 23px;
+  }
+
+  .oc-form-top,
+  .oc-form-footer {
+    font-size: 8px;
+  }
+
+  .oc-form-content {
+    margin: 55px auto;
+  }
+
+  .oc-form-intro h1 {
+    font-size: 39px;
+  }
+}
+
+/* =====================================
+   ACCESSIBILITY
+===================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-title,
+  .flying-book,
+  .oc-login-page,
+  .oc-brand-content,
+  .oc-form-content,
+  .oc-network-line,
+  .oc-node {
+    animation: none !important;
+  }
+
+  .intro-title {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+
+  .flying-book {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(0.22);
+  }
+
+  .oc-visual {
+    transition: none;
+  }
+}
+
+/* =========================================
+   OMNICAMPUS LOGIN — NAVY + COBALT THEME
+   Keeps original intro and login layout
+========================================= */
+
+.oc-login-page {
+  background: #0b1d3a;
+}
+
+.oc-login-shell {
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  box-shadow:
+    0 28px 85px rgba(0, 0, 0, 0.24),
+    0 8px 25px rgba(0, 0, 0, 0.10);
+}
+
+/* LEFT BRAND PANEL */
+
+.oc-brand-panel {
+  background: linear-gradient(
+    145deg,
+    #0b1d3a 0%,
+    #112a52 65%,
+    #1a3d77 100%
+  );
+}
+
+.oc-brand-panel::before {
+  background: rgba(53, 104, 212, 0.13);
+}
+
+.oc-brand-edition,
+.oc-section-index {
+  color: #a9c3ee;
+}
+
+.oc-index-line {
+  background: #749ce4;
+}
+
+.oc-brand-content h2 em {
+  color: #a9c7ff;
+}
+
+.oc-brand-content p {
+  color: #c2d0e5;
+}
+
+.oc-brand-footer {
+  color: #c4d4eb;
+}
+
+.oc-footer-dot {
+  background: #6698ed;
+}
+
+/* ANIMATED NETWORK */
+
+.oc-network-line {
+  stroke: #8eb4fa;
+}
+
+.oc-node {
+  fill: #b3d0ff;
+}
+
+.oc-center-ring {
+  stroke: rgba(176, 207, 255, 0.7);
+  fill: rgba(53, 104, 212, 0.09);
+}
+
+/* RIGHT LOGIN PANEL */
+
+.oc-form-panel {
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(220, 232, 250, 0.50),
+      transparent 48%
+    ),
+    #ffffff;
+}
+
+.oc-form-kicker {
+  color: #3568d4;
+}
+
+.oc-form-intro h1 {
+  color: #0b1d3a;
+}
+
+.oc-form-intro h1 em {
+  color: #3568d4;
+}
+
+.oc-form-intro p {
+  color: #657185;
+}
+
+/* INPUT FIELDS */
+
+.oc-field label {
+  color: #0b1d3a;
+}
+
+.oc-input-container {
+  background: rgba(142, 154, 172, 0.08);
+  border-color: #dce3ed;
+}
+
+.oc-input-container:focus-within {
+  background: #ffffff;
+  border-color: #3568d4;
+  box-shadow: 0 0 0 3px rgba(53, 104, 212, 0.11);
+}
+
+.oc-input-container input {
+  color: #0b1d3a;
+}
+
+.oc-text-button,
+.oc-show-password,
+.oc-register-link {
+  color: #3568d4;
+}
+
+.oc-text-button:hover,
+.oc-show-password:hover,
+.oc-register-link:hover {
+  color: #0b1d3a;
+}
+
+/* SIGN IN BUTTON */
+
+.oc-signin-button {
+  background: #3568d4;
+  border-color: #3568d4;
+  color: #ffffff;
+}
+
+.oc-signin-button:hover {
+  background: #2456ba;
+  border-color: #2456ba;
+  box-shadow: 0 10px 24px rgba(53, 104, 212, 0.24);
+}
+
+/* STATUS MESSAGE */
+
+.oc-form-message {
+  background: #eaf1fc;
+  border-color: #d4e1f7;
+  color: #234e98;
+}
+
+/* REGISTRATION AND FOOTER */
+
+.oc-register-section {
+  border-top-color: #e5eaf2;
+}
+
+.oc-register-section p {
+  color: #657185;
+}
+
+.oc-form-footer {
+  border-top-color: #e5eaf2;
+  color: #7e8ca1;
+}
+
+.oc-secure-dot {
+  background: #3568d4;
+}
+/* Login page left panel image */
+
+.oc-brand-panel {
+  background-image:
+    linear-gradient(
+      rgba(11, 29, 58, 0.55),
+      rgba(11, 29, 58, 0.75)
+    ),
+    url('/images/login-background.jpg');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* =========================================
+   STUDENT LOGIN — MATCH COLLEGE LOGIN
+   Same background image and navy-blue theme
+========================================= */
+
+.student-auth-page {
+  background: #0b1d3a;
+}
+
+.student-auth-shell {
+  width: min(1180px, 100%);
+  grid-template-columns: 1.05fr 0.95fr;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 18px;
+  box-shadow:
+    0 28px 85px rgba(0, 0, 0, 0.24),
+    0 8px 25px rgba(0, 0, 0, 0.10);
+}
+
+/* SAME IMAGE AS COLLEGE REPRESENTATIVE LOGIN */
+
+.student-brand-panel {
+  background-image:
+    linear-gradient(
+      rgba(11, 29, 58, 0.55),
+      rgba(11, 29, 58, 0.75)
+    ),
+    url('/images/login-background.jpg');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* SAME LOGO AND BRAND COLORS */
+
+.student-brand-name {
+  font-size: 37px;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+
+.student-brand-edition,
+.student-section-index {
+  color: #a9c3ee;
+}
+
+.student-index-line {
+  background: #749ce4;
+}
+
+.student-brand-content h2 em {
+  color: #a9c7ff;
+}
+
+.student-brand-content p {
+  color: #c2d0e5;
+}
+
+.student-brand-footer {
+  color: #c4d4eb;
+}
+
+.student-footer-dot {
+  background: #6698ed;
+}
+
+/* SAME NETWORK ILLUSTRATION */
+
+.student-network-line {
+  stroke: #8eb4fa;
+  stroke-width: 1.15;
+  stroke-dasharray: 5 8;
+  opacity: 0.55;
+  animation: studentLineMove 24s linear infinite;
+}
+
+.student-network-secondary {
+  opacity: 0.25;
+  animation-duration: 32s;
+}
+
+.student-node {
+  fill: #b3d0ff;
+  opacity: 0.75;
+  animation: studentNodePulse 4s ease-in-out infinite alternate;
+}
+
+.student-center-ring {
+  stroke: rgba(176, 207, 255, 0.7);
+  stroke-width: 1;
+  fill: rgba(53, 104, 212, 0.09);
+}
+
+.student-center-node {
+  fill: #ffffff;
+}
+
+@keyframes studentLineMove {
+  to {
+    stroke-dashoffset: -260;
+  }
+}
+
+@keyframes studentNodePulse {
+  from {
+    opacity: 0.35;
+  }
+
+  to {
+    opacity: 0.9;
+  }
+}
+
+/* SAME WHITE FORM PANEL */
+
+.student-form-panel {
+  background:
+    radial-gradient(
+      circle at 100% 0%,
+      rgba(220, 232, 250, 0.50),
+      transparent 48%
+    ),
+    #ffffff;
+}
+
+.student-form-kicker {
+  color: #3568d4;
+}
+
+.student-form-intro h1 {
+  color: #0b1d3a;
+}
+
+.student-form-intro h1 em {
+  color: #3568d4;
+}
+
+.student-form-intro p {
+  color: #657185;
+}
+
+/* SAME INPUT COLORS */
+
+.student-field label {
+  color: #0b1d3a;
+}
+
+.student-field input {
+  background: rgba(142, 154, 172, 0.08);
+  border-color: #dce3ed;
+}
+
+.student-field input:focus {
+  background: #ffffff;
+  border-color: #3568d4;
+  box-shadow: 0 0 0 3px rgba(53, 104, 212, 0.11);
+}
+
+/* SAME COBALT BUTTON */
+
+.student-signin-button {
+  background: #3568d4;
+  color: #ffffff;
+}
+
+.student-signin-button:hover {
+  background: #2456ba;
+  box-shadow: 0 10px 24px rgba(53, 104, 212, 0.24);
+}
+
+/* KEEP THE FORM RESPONSIVE */
+
+@media (max-width: 900px) {
+  .student-auth-shell {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .student-auth-page {
+    padding: 0;
+  }
+
+  .student-auth-shell {
+    border: none;
+    border-radius: 0;
+  }
+
+  .student-brand-panel {
+    min-height: 350px;
+    padding: 25px;
+  }
+
+  .student-form-panel {
+    padding: 28px 23px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .student-network-line,
+  .student-node {
+    animation: none;
+  }
+}

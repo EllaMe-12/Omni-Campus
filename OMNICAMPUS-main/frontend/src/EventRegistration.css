@@ -1,0 +1,232 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+.event-registration-page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f7f9fc;
+  color: #0b1d3a;
+  font-family: 'DM Sans', sans-serif;
+}
+
+.event-registration-page * {
+  box-sizing: border-box;
+}
+
+.event-registration-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 7%;
+  background: white;
+  border-bottom: 1px solid #e6eaf0;
+}
+
+.event-registration-logo {
+  border: 0;
+  background: transparent;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 33px;
+  font-style: italic;
+  font-weight: 700;
+  color: #0b1d3a;
+  cursor: pointer;
+}
+
+.event-registration-logo span,
+.event-registration-footer strong span {
+  color: #3568d4;
+}
+
+.event-registration-back {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 16px;
+  border: 1px solid #dce4ef;
+  border-radius: 9px;
+  background: white;
+  color: #18345b;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.event-registration-main {
+  width: min(800px, 90%);
+  margin: 0 auto;
+  padding: 65px 0 90px;
+  flex: 1;
+}
+
+.event-registration-kicker {
+  display: block;
+  margin-bottom: 17px;
+  color: #3568d4;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+}
+
+.event-registration-heading h1 {
+  margin: 0 0 15px;
+  font-size: clamp(36px, 5vw, 56px);
+  letter-spacing: -1.5px;
+}
+
+.event-registration-heading h1 em {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.15em;
+  font-weight: 600;
+  font-style: italic;
+  color: #3568d4;
+}
+
+.event-registration-heading p {
+  color: #64748b;
+  line-height: 1.8;
+  margin-bottom: 35px;
+}
+
+.event-registration-card {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  padding: 35px;
+  border: 1px solid #e4eaf3;
+  border-radius: 17px;
+  background: white;
+  box-shadow: 0 10px 35px rgba(11, 29, 58, 0.04);
+}
+
+.event-registration-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #eaf1ff;
+  color: #3568d4;
+  margin-bottom: 10px;
+}
+
+.event-registration-card label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #263a59;
+  margin-top: 8px;
+}
+
+.event-registration-card input,
+.event-registration-card select {
+  width: 100%;
+  min-height: 47px;
+  padding: 12px 14px;
+  border: 1px solid #dce3ed;
+  border-radius: 9px;
+  background: #fbfcfe;
+  color: #0b1d3a;
+  font-family: inherit;
+  font-size: 13px;
+  outline: none;
+}
+
+.event-registration-card input:focus,
+.event-registration-card select:focus {
+  border-color: #3568d4;
+  box-shadow: 0 0 0 3px rgba(53, 104, 212, 0.1);
+}
+
+.event-registration-event-info {
+  padding: 15px;
+  background: #f0f5ff;
+  border-radius: 9px;
+  color: #365779;
+  font-size: 12px;
+}
+
+.event-registration-event-info p {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin: 7px 0;
+  line-height: 1.6;
+}
+
+.event-registration-event-info svg {
+  flex-shrink: 0;
+  color: #3568d4;
+}
+
+.event-registration-submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  min-height: 49px;
+  margin-top: 18px;
+  border: 0;
+  border-radius: 9px;
+  background: #0b1d3a;
+  color: white;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.event-registration-submit:hover {
+  background: #173a6e;
+}
+
+.event-registration-message {
+  color: #3568d4;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.event-registration-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 27px 7%;
+  border-top: 1px solid #e4eaf3;
+  background: white;
+  color: #7c899b;
+  font-size: 12px;
+}
+
+.event-registration-footer strong {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 26px;
+  font-style: italic;
+  color: #0b1d3a;
+}
+
+@media (max-width: 768px) {
+  .event-registration-header {
+    padding: 18px 5%;
+  }
+
+  .event-registration-logo {
+    font-size: 27px;
+  }
+
+  .event-registration-main {
+    padding: 45px 0 65px;
+  }
+
+  .event-registration-card {
+    padding: 23px;
+  }
+
+  .event-registration-footer {
+    flex-direction: column;
+    text-align: center;
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "institutions": [
+    {
+      "id": "inst-1",
+      "name": "Edward College of Engineering",
+      "code": "ECE-001",
+      "type": "Engineering College",
+      "university": "University of Mumbai",
+      "location": "Parel, Mumbai, Maharashtra",
+      "address": "Parel, Mumbai, Maharashtra, India",
+      "email": "admin@edward.edu",
+      "phone": "+91 90000 00000",
+      "website": "https://edward.edu",
+      "representative": "College Administrator",
+      "designation": "Institution Coordinator",
+      "password": "password123"
+    },
+    {
+      "id": "inst-2",
+      "name": "K J Somaiya Institute of Technology",
+      "code": "KJS-002",
+      "type": "Technology Institute",
+      "university": "Mumbai University",
+      "location": "Sion, Mumbai, Maharashtra",
+      "address": "Ayryan Village, Sion, Mumbai, Maharashtra, India",
+      "email": "admin@university.edu",
+      "phone": "+91 98888 88888",
+      "website": "https://university.edu",
+      "representative": "Tech Lead",
+      "designation": "Portal Coordinator",
+      "password": "password123"
+    },
+    {
+      "id": "inst-1793470859797",
+      "name": "st xavier college of engineering",
+      "code": "sx-203",
+      "type": "Engineering College",
+      "university": "Affiliated University",
+      "location": "vashi, mumbai",
+      "address": "vashi, mumbai",
+      "email": "admin@stxavier.edu",
+      "phone": "9276287625",
+      "website": "https://institution.edu",
+      "representative": "Administrator",
+      "designation": "Coordinator",
+      "password": "admin"
+    },
+    {
+      "id": "inst-1793489241301",
+      "name": "mgm",
+      "code": "mgm-134",
+      "type": "Engineering College",
+      "university": "Affiliated University",
+      "location": "mgm panvel, navi numbai maharashtra",
+      "address": "mgm panvel, navi numbai maharashtra",
+      "email": "admin@mgm.edu",
+      "phone": "9746287643",
+      "website": "https://institution.edu",
+      "representative": "Administrator",
+      "designation": "Coordinator",
+      "password": "123"
+    },
+    {
+      "id": "inst-1793489539013",
+      "name": "abc college of arts",
+      "code": "abd-123",
+      "type": "Engineering College",
+      "university": "Affiliated University",
+      "location": "vashi, mumbai",
+      "address": "vashi, mumbai",
+      "email": "admin@abc.edu",
+      "phone": "9136578251",
+      "website": "https://institution.edu",
+      "representative": "Administrator",
+      "designation": "Coordinator",
+      "password": "adminabc"
+    }
+  ],
+  "requests": [
+    {
+      "id": "req-1793488676778",
+      "studentName": "Max John",
+      "email": "max@stxavier.edu",
+      "college": "st xavier college of engineering",
+      "collegeId": "11103421",
+      "category": "Resource Shortage",
+      "subject": "mathematics book",
+      "description": "book",
+      "timestamp": "04:47 am",
+      "status": "New"
+    },
+    {
+      "id": "req-1793487897111",
+      "studentName": "Max John",
+      "email": "admin@stxavier.edu",
+      "college": "st xavier college of engineering",
+      "collegeId": "11103421",
+      "category": "Classroom Facilities",
+      "subject": "10 benches",
+      "description": "wooden benches",
+      "timestamp": "04:34 am",
+      "status": "New"
+    }
+  ],
+  "students": [
+    {
+      "id": "stud-1",
+      "name": "Student Representative",
+      "email": "student@university.edu",
+      "collegeName": "K J Somaiya Institute of Technology",
+      "studentId": "KJS-IT-2026",
+      "password": "password123"
+    },
+    {
+      "id": "stud-1793487499377",
+      "name": "Max John",
+      "email": "max@stxavier.edu",
+      "collegeName": "st xavier college of engineering",
+      "studentId": "11103421",
+      "password": "max123"
+    },
+    {
+      "id": "stud-1793489177572",
+      "name": "eva max",
+      "email": "eva@mgm.edu",
+      "collegeName": "mgm",
+      "studentId": "1110342",
+      "password": "eva123"
+    },
+    {
+      "id": "stud-1793489628347",
+      "name": "student",
+      "email": "student@abc.edu",
+      "collegeName": "abc college of arts",
+      "studentId": "22340013",
+      "password": "student"
+    }
+  ]
+}

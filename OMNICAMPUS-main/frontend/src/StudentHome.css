@@ -1,0 +1,490 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+/* =========================================
+   OMNICAMPUS - STUDENT HOMEPAGE
+========================================= */
+
+.student-home {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  color: #0b1d3a;
+  font-family: 'DM Sans', Arial, sans-serif;
+}
+
+.student-home *,
+.student-home *::before,
+.student-home *::after {
+  box-sizing: border-box;
+}
+
+/* =========================================
+   HEADER
+========================================= */
+
+.student-home-header {
+  min-height: 92px;
+  padding: 15px max(5.5%, calc((100% - 1120px) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  background: #ffffff;
+}
+
+.student-home-logo {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: #0b1d3a;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 38px;
+  font-style: italic;
+  font-weight: 600;
+  letter-spacing: -0.05em;
+  cursor: pointer;
+}
+
+.student-home-logo span,
+.student-home-footer-logo span {
+  color: #3568d4;
+}
+
+/* MY ACCOUNT AND SWITCH ROLE BUTTONS */
+
+.student-home-account {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 16px 20px;
+  border: 0;
+  border-radius: 8px;
+  background: #0b1d3a;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.student-home-account:hover,
+.student-home-explore:hover {
+  background: #244a83;
+  transform: translateY(-2px);
+}
+
+/* =========================================
+   HERO - TECH TEAM NAVY BLUE GRADIENT
+========================================= */
+
+.student-home .student-home-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 515px;
+
+  background-color: #0b1d3a;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(7, 22, 45, 0.92) 0%,
+      rgba(11, 29, 58, 0.78) 48%,
+      rgba(11, 29, 58, 0.42) 100%
+    ),
+    url('/images/conference-hall.jpg') !important;
+
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+
+  color: #ffffff;
+}
+
+.student-home-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: min(1120px, 89%);
+  min-height: 515px;
+  margin: 0 auto;
+  padding: 70px 0 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.student-home-kicker {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: #568bf0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.student-home-kicker span {
+  width: 28px;
+  height: 2px;
+  background: #3568d4;
+}
+
+.student-home-hero h1 {
+  margin: 35px 0 22px;
+  color: #ffffff;
+  font-size: clamp(38px, 4.6vw, 61px);
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.065em;
+  line-height: 1.08;
+}
+
+.student-home-hero h1 em {
+  color: #d5e2ff;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.06em;
+  font-weight: 600;
+}
+
+.student-home-hero p {
+  max-width: 600px;
+  margin: 0 0 22px;
+  color: #e2e9f5;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.9;
+}
+
+.student-home-explore {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 17px 24px;
+  border: none;
+  border-radius: 8px;
+  background: #0b1d3a;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.student-home-hero-footer {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  color: #d2daea;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+/* =========================================
+   NAVIGATION TILES
+========================================= */
+
+.student-home-navigation {
+  padding: 23px 5.5% 30px;
+  background: #f6f8fb;
+}
+
+.student-home-tiles {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.student-home-tile {
+  min-height: 116px;
+  padding: 18px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  border: 1px solid #d1d9e4;
+  border-radius: 18px;
+  background: #ebeff4;
+  color: #0b1d3a;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  font-style: italic;
+  cursor: pointer;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s,
+    background 0.25s;
+}
+
+.student-home-tile svg {
+  color: #3568d4;
+}
+
+.student-home-tile:hover {
+  transform: translateY(-5px);
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(11, 29, 58, 0.1);
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.student-home-footer {
+  min-height: 136px;
+  margin-top: auto;
+  padding: 30px max(5.5%, calc((100% - 1120px) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid #e6eaf0;
+  background: #ffffff;
+  color: #8995aa;
+  font-size: 11px;
+  font-style: italic;
+}
+
+.student-home-footer-logo {
+  color: #0b1d3a;
+  font-size: 23px;
+  font-weight: 700;
+}
+
+/* =========================================
+   REQUEST MODAL
+========================================= */
+
+.student-request-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(5, 16, 35, 0.7);
+}
+
+.student-request-modal {
+  width: min(530px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 30px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+}
+
+.student-request-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.student-request-top span {
+  color: #3568d4;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.student-request-top h2 {
+  margin: 9px 0 0;
+  font-size: 27px;
+  color: #0b1d3a;
+}
+
+.student-request-top button {
+  padding: 7px;
+  display: flex;
+  border: none;
+  border-radius: 7px;
+  background: #eef2f7;
+  color: #0b1d3a;
+  cursor: pointer;
+}
+
+.student-request-description {
+  margin: 15px 0 24px;
+  color: #657185;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.student-request-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.student-request-modal label {
+  margin-top: 8px;
+  color: #0b1d3a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.student-request-modal input,
+.student-request-modal select,
+.student-request-modal textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #dce3ed;
+  border-radius: 8px;
+  outline: none;
+  background: #f8fafc;
+  color: #0b1d3a;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.student-request-modal textarea {
+  resize: vertical;
+}
+
+.student-request-modal input:focus,
+.student-request-modal select:focus,
+.student-request-modal textarea:focus {
+  border-color: #3568d4;
+  box-shadow: 0 0 0 3px rgba(53, 104, 212, 0.1);
+}
+
+.student-request-submit {
+  margin-top: 13px;
+  padding: 15px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  border-radius: 8px;
+  background: #3568d4;
+  color: #ffffff;
+  font-family: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.student-request-submit:hover {
+  background: #2456ba;
+}
+
+.student-request-message {
+  padding: 12px;
+  border-radius: 8px;
+  background: #eaf1fc;
+  color: #234e98;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
+
+@media (max-width: 800px) {
+  .student-home-header {
+    padding: 15px 25px;
+  }
+
+  .student-home-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .student-home-hero-inner {
+    padding-top: 55px;
+  }
+
+  .student-home-footer {
+    padding: 30px 25px;
+  }
+}
+
+/* =========================================
+   RESPONSIVE - MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+  .student-home-header {
+    min-height: 75px;
+    height: auto;
+    padding: 15px 18px;
+    flex-wrap: wrap;
+  }
+
+  .student-home-logo {
+    font-size: 29px;
+  }
+
+  .student-home-account {
+    padding: 11px 12px;
+    font-size: 11px;
+    gap: 7px;
+  }
+
+  .student-home-account svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .student-home-hero,
+  .student-home-hero-inner {
+    min-height: 490px;
+  }
+
+  .student-home-hero-inner {
+    width: 90%;
+    padding-top: 55px;
+  }
+
+  .student-home-hero h1 {
+    font-size: 39px;
+  }
+
+  .student-home-hero p {
+    font-size: 12px;
+  }
+
+  .student-home-hero-footer {
+    font-size: 8px;
+  }
+
+  .student-home-navigation {
+    padding: 20px 15px;
+  }
+
+  .student-home-tiles {
+    gap: 10px;
+  }
+
+  .student-home-tile {
+    min-height: 105px;
+    font-size: 11px;
+  }
+
+  .student-home-footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .student-request-modal {
+    padding: 22px;
+  }
+}

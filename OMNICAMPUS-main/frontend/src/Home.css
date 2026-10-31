@@ -1,0 +1,516 @@
+
+@import url("https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600;1,700&family=DM+Sans:wght@400;500;600;700;800&display=swap");
+
+/* ==========================================
+   OMNICAMPUS — COLLEGE REPRESENTATIVE HOME
+========================================== */
+
+.oc-home {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  color: #0b1d3a;
+  font-family: "DM Sans", sans-serif;
+}
+
+.oc-home * {
+  box-sizing: border-box;
+}
+
+.oc-home button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.oc-home .oc-header {
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #e5eaf1;
+}
+
+.oc-home .oc-header-inner {
+  width: 100%;
+  max-width: 1500px;
+  min-height: 84px;
+  margin: 0 auto;
+  padding: 16px clamp(22px, 5vw, 80px);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.oc-home .oc-logo {
+  padding: 0;
+  border: none;
+  background: transparent;
+
+  color: #0b1d3a;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 38px;
+  font-style: italic;
+  font-weight: 700;
+  letter-spacing: -1px;
+}
+
+.oc-home .oc-logo span {
+  font-family: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+}
+
+.oc-home .oc-logo-dot {
+  color: #3568d4;
+}
+
+.oc-home .oc-account {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  padding: 11px 16px;
+  border: 1px solid #dce4ef;
+  border-radius: 8px;
+  background: #ffffff;
+
+  color: #0b1d3a;
+  font-size: 12px;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.oc-home .oc-account:hover {
+  background: #f2f6fd;
+  border-color: #b8c8e5;
+}
+
+/* ==========================================
+   MAIN CONTENT
+========================================== */
+
+.oc-home .oc-home-main {
+  width: 100%;
+  flex: 1;
+}
+
+/* ==========================================
+   HERO — CONFERENCE HALL IMAGE
+========================================== */
+
+.oc-home .oc-hero {
+  position: relative;
+  isolation: isolate;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  width: 100%;
+  min-height: 460px;
+  overflow: hidden;
+
+  padding: 65px clamp(22px, 7vw, 110px) 75px;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(7, 22, 45, 0.92) 0%,
+      rgba(11, 29, 58, 0.78) 48%,
+      rgba(11, 29, 58, 0.42) 100%
+    ),
+    url("/images/conference-hall.jpg");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  color: #ffffff;
+}
+
+.oc-home .oc-hero-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 850px;
+}
+
+.oc-home .oc-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  margin-bottom: 27px;
+
+  color: #9bb3de;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.oc-home .oc-eyebrow-line {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 30px;
+  height: 1px;
+  background: #a8c2f1;
+}
+
+.oc-home .oc-hero-title {
+  margin: 0;
+
+  color: #ffffff;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(49px, 6vw, 88px);
+  font-weight: 600;
+  line-height: 1.06;
+  letter-spacing: -1.5px;
+}
+
+.oc-home .oc-hero-title span {
+  color: #ffffff;
+  font-family: inherit;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.oc-home .oc-hero-description {
+  max-width: 630px;
+  margin: 29px 0 0;
+
+  color: #dce5f2;
+  font-size: 15px;
+  line-height: 1.95;
+}
+
+.oc-home .oc-hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-top: 32px;
+}
+
+.oc-home .oc-primary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+
+  padding: 15px 22px;
+  border: 1px solid #ffffff;
+  border-radius: 7px;
+
+  background: #ffffff;
+  color: #0b1d3a;
+
+  font-size: 13px;
+  font-weight: 700;
+  transition: 0.2s ease;
+}
+
+.oc-home .oc-primary-btn:hover {
+  background: #e9f0fc;
+  transform: translateY(-2px);
+}
+
+.oc-home .oc-hero-bottom {
+  position: absolute;
+  z-index: 1;
+  bottom: 25px;
+  left: clamp(22px, 7vw, 110px);
+  right: clamp(22px, 7vw, 110px);
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  color: #c6d4e8;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+/* ==========================================
+   SIX SQUARE TILES — ONE HORIZONTAL ROW
+========================================== */
+
+.oc-home .oc-tile-section {
+  width: 100%;
+  padding: 28px clamp(16px, 4vw, 60px) 35px;
+  background: #ffffff;
+}
+
+.oc-home .oc-tile-container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.oc-home .oc-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.oc-home .oc-feature-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 17px;
+
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  min-width: 0;
+  min-height: 0;
+  padding: 14px 8px;
+
+  border: 1px solid #e0e7f0;
+  border-radius: 13px;
+  background: #ffffff;
+
+  color: #0b1d3a;
+  text-align: center;
+
+  box-shadow: 0 5px 22px rgba(11, 29, 58, 0.035);
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.oc-home .oc-feature-tile svg {
+  width: 29px;
+  height: 29px;
+  color: #3568d4;
+  flex-shrink: 0;
+}
+
+.oc-home .oc-feature-tile span {
+  color: #0b1d3a;
+  font-size: clamp(11px, 1.1vw, 15px);
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.oc-home .oc-feature-tile:hover {
+  background: #f4f7fc;
+  border-color: #b9ccec;
+  box-shadow: 0 12px 28px rgba(11, 29, 58, 0.08);
+  transform: translateY(-4px);
+}
+
+.oc-home .oc-feature-tile:focus-visible,
+.oc-home button:focus-visible {
+  outline: 3px solid #3568d4;
+  outline-offset: 3px;
+}
+
+/* ==========================================
+   SCROLL REVEAL ANIMATION
+========================================== */
+
+.oc-home .oc-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+
+  transition:
+    opacity 0.75s ease,
+    transform 0.75s ease;
+}
+
+.oc-home .oc-reveal.oc-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.oc-home .oc-hero-title.oc-reveal {
+  transition-delay: 0.1s;
+}
+
+.oc-home .oc-hero-description.oc-reveal {
+  transition-delay: 0.2s;
+}
+
+.oc-home .oc-hero-actions.oc-reveal {
+  transition-delay: 0.3s;
+}
+
+/* ==========================================
+   FOOTER
+========================================== */
+
+.oc-home .oc-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+
+  width: 100%;
+  padding: 28px clamp(22px, 5vw, 80px);
+
+  border-top: 1px solid #e5eaf1;
+  background: #ffffff;
+
+  color: #8190a5;
+  font-size: 12px;
+}
+
+.oc-home .oc-footer-brand {
+  color: #0b1d3a;
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: 29px;
+  font-style: italic;
+  font-weight: 700;
+}
+
+/* ==========================================
+   TABLET — KEEP SIX IN ONE ROW
+========================================== */
+
+@media (max-width: 900px) {
+  .oc-home .oc-feature-grid {
+    gap: 8px;
+  }
+
+  .oc-home .oc-feature-tile {
+    gap: 10px;
+    padding: 8px 4px;
+    border-radius: 9px;
+  }
+
+  .oc-home .oc-feature-tile svg {
+    width: 23px;
+    height: 23px;
+  }
+
+  .oc-home .oc-feature-tile span {
+    font-size: 10px;
+  }
+
+  .oc-home .oc-hero-title {
+    font-size: clamp(48px, 7vw, 70px);
+  }
+}
+
+/* ==========================================
+   MOBILE — SIX SQUARE TILES IN ONE ROW
+   SCROLL HORIZONTALLY IF SCREEN IS TOO NARROW
+========================================== */
+
+@media (max-width: 600px) {
+  .oc-home .oc-header-inner {
+    min-height: 74px;
+  }
+
+  .oc-home .oc-logo {
+    font-size: 31px;
+  }
+
+  .oc-home .oc-account {
+    padding: 10px 12px;
+    font-size: 11px;
+  }
+
+  .oc-home .oc-hero {
+    min-height: 460px;
+    padding: 55px 24px 75px;
+  }
+
+  .oc-home .oc-eyebrow {
+    font-size: 9px;
+    letter-spacing: 1.3px;
+  }
+
+  .oc-home .oc-hero-title {
+    font-size: clamp(43px, 11vw, 60px);
+  }
+
+  .oc-home .oc-hero-description {
+    font-size: 13px;
+    line-height: 1.85;
+  }
+
+  .oc-home .oc-hero-bottom {
+    left: 24px;
+    right: 24px;
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+
+  .oc-home .oc-hero-bottom span:last-child {
+    display: none;
+  }
+
+  .oc-home .oc-tile-section {
+    padding: 22px 16px 30px;
+  }
+
+  .oc-home .oc-tile-container {
+    overflow-x: auto;
+    padding-bottom: 8px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .oc-home .oc-feature-grid {
+    grid-template-columns: repeat(6, 110px);
+    width: max-content;
+    gap: 10px;
+  }
+
+  .oc-home .oc-feature-tile {
+    width: 110px;
+    height: 110px;
+    aspect-ratio: 1 / 1;
+    padding: 10px;
+  }
+
+  .oc-home .oc-feature-tile span {
+    font-size: 11px;
+  }
+
+  .oc-home .oc-footer {
+    flex-direction: column;
+    text-align: center;
+    padding: 26px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oc-home .oc-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .oc-home .oc-feature-tile,
+  .oc-home .oc-primary-btn {
+    transition: none;
+  }
+}
+
+/* ==========================================
+   FIX EXPLORE RESOURCES BUTTON SPACING
+========================================== */
+
+.oc-home .oc-hero {
+  min-height: 510px;
+  padding-bottom: 110px;
+}
+
+@media (max-width: 600px) {
+  .oc-home .oc-hero {
+    min-height: 510px;
+    padding-bottom: 110px;
+  }
+}
