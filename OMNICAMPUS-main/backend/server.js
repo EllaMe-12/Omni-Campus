@@ -34,6 +34,59 @@ function writeDatabase(data) {
 }
 
 // ---------------------------------------------------------
+// DEMO ACCOUNTS
+// Re-created on every server start if missing, so they survive
+// hosts (like Render) that reset the filesystem on redeploy.
+// ---------------------------------------------------------
+const DEMO_COLLEGE = {
+  id: 'inst-demo',
+  name: 'OmniCampus Demo College',
+  code: 'DEMO-001',
+  type: 'Engineering College',
+  university: 'University of Mumbai',
+  location: 'Mumbai, Maharashtra',
+  address: 'Mumbai, Maharashtra, India',
+  email: 'demo.college@omnicampus.edu',
+  phone: '+91 90000 00000',
+  website: 'https://omnicampus.edu',
+  representative: 'Demo Administrator',
+  designation: 'Institution Coordinator',
+  password: 'demo1234'
+};
+
+const DEMO_STUDENT = {
+  id: 'stud-demo',
+  name: 'Demo Student',
+  email: 'demo.student@omnicampus.edu',
+  collegeName: 'OmniCampus Demo College',
+  collegeCode: 'DEMO-001',
+  collegeAddress: 'Mumbai, Maharashtra, India',
+  studentId: 'DEMO-2026',
+  password: 'demo1234'
+};
+
+function seedDemoAccounts() {
+  const db = readDatabase();
+  let changed = false;
+
+  if (!db.institutions.some((i) => (i.email || '').toLowerCase() === DEMO_COLLEGE.email)) {
+    db.institutions.push({ ...DEMO_COLLEGE });
+    changed = true;
+  }
+  if (!db.students.some((s) => (s.email || '').toLowerCase() === DEMO_STUDENT.email)) {
+    db.students.push({ ...DEMO_STUDENT });
+    changed = true;
+  }
+
+  if (changed) {
+    writeDatabase(db);
+    console.log('Demo accounts seeded.');
+  }
+}
+
+seedDemoAccounts();
+
+// ---------------------------------------------------------
 // 1. UNIVERSAL COLLEGE VERIFICATION (Always returns success)
 // ---------------------------------------------------------
 app.post(['/api/auth/verify-college', '/api/auth/check-college', '/api/college/check'], (req, res) => {
@@ -175,7 +228,7 @@ app.post('/api/auth/college-login', (req, res) => {
   const emailLower = (email || '').toLowerCase().trim();
 
   const institution = db.institutions.find(
-    (inst) => inst.email.toLowerCase() === emailLower && inst.password === password
+    (inst) => (inst.email || '').toLowerCase() === emailLower && inst.password === password
   );
 
   if (!institution) {
@@ -190,7 +243,7 @@ app.post('/api/auth/college-register', (req, res) => {
   const db = readDatabase();
   const emailLower = (email || '').toLowerCase().trim();
 
-  let existing = db.institutions.find((inst) => inst.email.toLowerCase() === emailLower);
+  let existing = db.institutions.find((inst) => (inst.email || '').toLowerCase() === emailLower);
   if (existing) {
     return res.status(400).json({ message: 'Institution with this email already registered.' });
   }

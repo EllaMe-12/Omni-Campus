@@ -2,11 +2,32 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./StudentLogin.css"; // Uses the shared professional login styling
 
+// Demo account (created automatically by server.js on startup)
+const DEMO_STUDENT = {
+  email: "demo.student@omnicampus.edu",
+  password: "demo1234",
+};
+
+const demoButtonStyle = {
+  width: "100%",
+  minHeight: "48px",
+  marginTop: "10px",
+  border: "1px dashed #3568d4",
+  borderRadius: "8px",
+  background: "#eff5ff",
+  color: "#3568d4",
+  fontSize: "13px",
+  fontWeight: 700,
+  fontFamily: "inherit",
+  cursor: "pointer",
+};
+
 export default function StudentLogin() {
   const navigate = useNavigate();
 
   const [isRegistering, setIsRegistering] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     collegeName: "",
     studentId: "",
@@ -16,18 +37,21 @@ export default function StudentLogin() {
   });
   const [message, setMessage] = useState("");
 
-  const handleStudentAuth = async (e) => {
-    e.preventDefault();
+  // Shared by the normal form and the demo button
+  const authenticate = async (payload, register = false) => {
     setMessage("");
+    setLoading(true);
 
-    const endpoint = isRegistering ? "/api/auth/student-register" : "/api/auth/student-login";
-    const rawUrl = (import.meta.env.VITE_API_URL || "https://omni-campus-backend-e09d.onrender.com").trim().replace(/\/+$/, "");
+    const endpoint = register ? "/api/auth/student-register" : "/api/auth/student-login";
+    const rawUrl = (import.meta.env.VITE_API_URL || "https://omni-campus-backend-e09d.onrender.com")
+      .trim()
+      .replace(/\/+$/, "");
 
     try {
       const res = await fetch(`${rawUrl}${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form)
+        body: JSON.stringify(payload)
       });
 
       const data = await res.json();
@@ -40,13 +64,22 @@ export default function StudentLogin() {
       sessionStorage.setItem("studentName", data.student.name);
       sessionStorage.setItem("userEmail", data.student.email);
       sessionStorage.setItem("collegeName", data.student.collegeName);
-      sessionStorage.setItem("studentId", data.student.studentId || form.studentId);
+      sessionStorage.setItem("studentId", data.student.studentId || payload.studentId || "");
 
       navigate("/student/home");
     } catch (err) {
       setMessage("Error: Cannot connect to backend server.");
+    } finally {
+      setLoading(false);
     }
   };
+
+  const handleStudentAuth = (e) => {
+    e.preventDefault();
+    authenticate(form, isRegistering);
+  };
+
+  const handleDemoLogin = () => authenticate(DEMO_STUDENT, false);
 
   return (
     <main className="oc-login-page">
@@ -111,7 +144,7 @@ export default function StudentLogin() {
                     placeholder="e.g. K J Somaiya Institute of Technology"
                     value={form.collegeName}
                     onChange={(e) => setForm({ ...form, collegeName: e.target.value })}
-                    required
+                    required={isRegistering}
                   />
                 </div>
               </div>
@@ -164,10 +197,22 @@ export default function StudentLogin() {
                 </div>
               </div>
 
-              <button type="submit" className="oc-signin-button">
+              <button type="submit" className="oc-signin-button" disabled={loading}>
                 <span>{isRegistering ? "Create Student Account" : "Sign in to Student Portal"}</span>
                 <span className="oc-button-arrow">→</span>
               </button>
+
+              {/* One-click demo access */}
+              {!isRegistering && (
+                <button
+                  type="button"
+                  style={demoButtonStyle}
+                  onClick={handleDemoLogin}
+                  disabled={loading}
+                >
+                  {loading ? "Signing in…" : "Try demo account"}
+                </button>
+              )}
 
               {message && (
                 <p className="oc-form-message" role="status">
