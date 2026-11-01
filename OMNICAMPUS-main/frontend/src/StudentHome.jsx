@@ -1,4 +1,3 @@
-
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -10,6 +9,7 @@ import {
   ArrowLeftRight,
   X
 } from 'lucide-react'
+import { apiFetch } from "./utils/api";
 import './StudentHome.css'
 
 const studentPages = [
@@ -21,22 +21,30 @@ const studentPages = [
 
 export default function StudentHome() {
   const navigate = useNavigate()
+
   const [showRequest, setShowRequest] = useState(false)
   const [category, setCategory] = useState('Resource Shortage')
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
   const [message, setMessage] = useState('')
+  const [submitting, setSubmitting] = useState(false)
+
+  const studentName = sessionStorage.getItem('studentName') || 'Student'
+  const studentEmail = sessionStorage.getItem('userEmail') || ''
+  const collegeName = sessionStorage.getItem('collegeName') || ''
+  const studentId = sessionStorage.getItem('studentId') || ''
 
   const openPage = (path) => {
     if (path === '/student/requests') {
       setShowRequest(true)
+      setMessage('')
       return
     }
 
     navigate(path)
   }
 
-  const submitRequest = (event) => {
+  const submitRequest = async (event) => {
     event.preventDefault()
 
     if (!title.trim() || !description.trim()) {
@@ -44,9 +52,45 @@ export default function StudentHome() {
       return
     }
 
-    setMessage(
-      'Your request form is ready. Submission to your college will be enabled when the backend is connected.'
-    )
+    if (!collegeName || !studentEmail) {
+      setMessage('Error: Student or college information is missing. Please log in again.')
+      return
+    }
+
+    setSubmitting(true)
+    setMessage('')
+
+    try {
+      const response = await apiFetch('/api/requests', {
+        method: 'POST',
+        body: JSON.stringify({
+          title: title.trim(),
+          description: description.trim(),
+          type: category,
+          collegeName,
+          author: studentName,
+          email: studentEmail,
+          collegeId: studentId
+        })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Unable to submit your request.')
+      }
+
+      setMessage('Success: Your request has been successfully sent to your college administration!')
+      setTitle('')
+      setDescription('')
+      setCategory('Resource Shortage')
+
+    } catch (error) {
+      console.error('Request submission error:', error)
+      setMessage(`Error: ${error.message || 'Cannot connect to the backend server.'}`)
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -61,7 +105,6 @@ export default function StudentHome() {
           OmniCampus<span>.</span>
         </button>
 
-        {/* HEADER ACTIONS */}
         <div
           style={{
             display: 'flex',
@@ -71,7 +114,6 @@ export default function StudentHome() {
             flexWrap: 'wrap'
           }}
         >
-          {/* SWITCH ROLE */}
           <button
             type="button"
             className="student-home-account"
@@ -81,7 +123,6 @@ export default function StudentHome() {
             Switch Role
           </button>
 
-          {/* MY ACCOUNT */}
           <button
             type="button"
             className="student-home-account"
@@ -160,7 +201,7 @@ export default function StudentHome() {
         <div
           className="student-request-backdrop"
           onMouseDown={(event) => {
-            if (event.target === event.currentTarget) {
+            if (event.target === event.currentTarget && !submitting) {
               setShowRequest(false)
             }
           }}
@@ -180,8 +221,10 @@ export default function StudentHome() {
               </div>
 
               <button
+                type="button"
                 onClick={() => setShowRequest(false)}
                 aria-label="Close request form"
+                disabled={submitting}
               >
                 <X size={21} />
               </button>
@@ -204,6 +247,7 @@ export default function StudentHome() {
                   setCategory(event.target.value)
                   setMessage('')
                 }}
+                disabled={submitting}
               >
                 <option>Resource Shortage</option>
                 <option>Laboratory Equipment</option>
@@ -229,6 +273,7 @@ export default function StudentHome() {
                 }}
                 maxLength={120}
                 required
+                disabled={submitting}
               />
 
               <label htmlFor="student-request-details">
@@ -245,18 +290,30 @@ export default function StudentHome() {
                 }}
                 rows={5}
                 required
+                disabled={submitting}
               />
 
               <button
                 type="submit"
                 className="student-request-submit"
+                disabled={submitting}
               >
-                Submit Request
+                {submitting ? 'Submitting...' : 'Submit Request'}
                 <ArrowUpRight size={18} />
               </button>
 
               {message && (
-                <p className="student-request-message" role="status">
+                <p
+                  className="student-request-message"
+                  role="status"
+                  style={{
+                    color: message.startsWith('Error')
+                      ? '#dc2626'
+                      : message.startsWith('Success')
+                        ? '#198568'
+                        : undefined
+                  }}
+                >
                   {message}
                 </p>
               )}
