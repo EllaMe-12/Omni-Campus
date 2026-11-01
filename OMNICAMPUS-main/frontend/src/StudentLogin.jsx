@@ -52,10 +52,10 @@ export default function StudentLogin() {
       return;
     }
 
-    const backendUrl = import.meta.env.VITE_API_URL || "";
+    const rawUrl = (import.meta.env.VITE_API_URL || "").trim().replace(/\/+$/, "");
     const endpoint = mode === "login" 
-      ? `${backendUrl}/api/auth/student-login` 
-      : `${backendUrl}/api/auth/student-register`;
+      ? `${rawUrl}/api/auth/student-login` 
+      : `${rawUrl}/api/auth/student-register`;
       
     try {
       const payload = mode === "login"

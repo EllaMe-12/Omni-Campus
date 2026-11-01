@@ -74,6 +74,21 @@
       "representative": "Administrator",
       "designation": "Coordinator",
       "password": "adminabc"
+    },
+    {
+      "id": "inst-1793492057605",
+      "name": "work college",
+      "code": "w0-123",
+      "type": "Engineering College",
+      "university": "Affiliated University",
+      "location": "mumbai",
+      "address": "mumbai",
+      "email": "admin@work.edu",
+      "phone": "02286515494",
+      "website": "https://institution.edu",
+      "representative": "Administrator",
+      "designation": "Coordinator",
+      "password": "admin123"
     }
   ],
   "requests": [

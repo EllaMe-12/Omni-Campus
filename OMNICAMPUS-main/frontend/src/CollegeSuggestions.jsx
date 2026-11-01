@@ -1,192 +1,229 @@
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
-import {
-  ArrowLeft,
-  MessageSquare,
-  Inbox,
-  CalendarDays,
-  CheckCircle2
-} from 'lucide-react'
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft, Send, CheckCircle2, MessageSquare } from "lucide-react";
+import "./SuggestionsAndRequests.css";
 
-import './CollegeSuggestions.css'
+export default function SuggestionsAndRequests() {
+  const navigate = useNavigate();
 
-export default function CollegeSuggestions() {
-  const navigate = useNavigate()
-  const [suggestions, setSuggestions] = useState([])
-  const [loading, setLoading] = useState(true)
-  const collegeName = sessionStorage.getItem("collegeName") || "Edward College of Engineering"
+  const [activeTab, setActiveTab] = useState("submit");
+  const [suggestionType, setSuggestionType] = useState("suggestion");
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [isAnonymous, setIsAnonymous] = useState(false);
+  const [submittedMessage, setSubmittedMessage] = useState("");
+  const [requestsList, setRequestsList] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const studentName = sessionStorage.getItem("studentName") || "Tech Admin";
+  const userEmail = sessionStorage.getItem("userEmail") || "";
+  const collegeName = sessionStorage.getItem("collegeName") || "OmniCampus Portal";
+
+  useEffect(() => {
+    if (activeTab === "view") {
+      fetchRequests();
+    }
+  }, [activeTab]);
 
   const fetchRequests = async () => {
+    setLoading(true);
     try {
-      const response = await fetch("/api/requests");
-      const data = await response.json();
-      if (data.success) {
-        setSuggestions(data.requests || []);
+      const rawUrl = (import.meta.env.VITE_API_URL || "").trim().replace(/\/+$/, "");
+      const response = await fetch(`${rawUrl}/api/requests`);
+      if (response.ok) {
+        const data = await response.json();
+        setRequestsList(data);
       }
     } catch (err) {
-      console.error("Failed to fetch requests from backend", err);
+      console.error("Failed to fetch suggestions:", err);
     } finally {
       setLoading(false);
     }
   };
 
-  useEffect(() => {
-    fetchRequests();
-    const interval = setInterval(fetchRequests, 3000); // Polling for real-time updates
-    return () => clearInterval(interval);
-  }, []);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setSubmittedMessage("");
 
-  const updateStatus = (id, status) => {
-    const updated = suggestions.map((item) =>
-      item.id === id ? { ...item, status } : item
-    )
-    setSuggestions(updated)
-  }
+    if (!title || !description) {
+      setSubmittedMessage("Error: Please fill in all required fields.");
+      return;
+    }
 
-  const newCount = suggestions.filter(
-    (item) => (item.status || 'New') === 'New'
-  ).length
+    const payload = {
+      type: suggestionType,
+      title,
+      description,
+      isAnonymous,
+      author: isAnonymous ? "Anonymous User" : studentName,
+      authorEmail: isAnonymous ? "" : userEmail,
+      collegeName,
+      createdAt: new Date().toISOString()
+    };
 
-  const reviewedCount = suggestions.filter(
-    (item) => item.status === 'Reviewed'
-  ).length
+    try {
+      const rawUrl = (import.meta.env.VITE_API_URL || "").trim().replace(/\/+$/, "");
+      const response = await fetch(`${rawUrl}/api/requests`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
 
-  const resolvedCount = suggestions.filter(
-    (item) => item.status === 'Resolved'
-  ).length
+      if (response.ok) {
+        setSubmittedMessage("Success: Your entry has been submitted successfully.");
+        setTitle("");
+        setDescription("");
+      } else {
+        const data = await response.json();
+        setSubmittedMessage("Error: " + (data.message || "Submission failed."));
+      }
+    } catch (err) {
+      setSubmittedMessage("Error: Cannot connect to server.");
+    }
+  };
+
+  const handleBackNavigation = () => {
+    if (sessionStorage.getItem("studentName")) {
+      navigate("/student/home");
+    } else {
+      navigate("/");
+    }
+  };
 
   return (
-    <div className="college-suggestions-page">
-      <header className="college-suggestions-header">
-        <button
-          type="button"
-          className="college-suggestions-logo"
-          onClick={() => navigate('/student/home')}
-        >
-          OmniCampus<span>.</span>
-        </button>
-
-        <button
-          type="button"
-          className="college-suggestions-back"
-          onClick={() => navigate('/student/home')}
-        >
-          <ArrowLeft size={17} />
-          Back to Home
-        </button>
-      </header>
-
-      <main className="college-suggestions-main">
-        <div className="college-suggestions-heading">
-          <span className="college-suggestions-kicker">
-            {collegeName.toUpperCase()} / COLLEGE PORTAL
-          </span>
-
-          <h1>
-            Student <em>Suggestions & Requests.</em>
-          </h1>
-
-          <p>
-            Review resource shortages, suggestions, and issues submitted by students of your institution synced via backend.
-          </p>
-        </div>
-
-        <div className="college-suggestions-stats">
-          <div className="college-suggestions-stat">
-            <MessageSquare size={22} />
-            <strong>{suggestions.length}</strong>
-            <span>Total Submissions</span>
+    <main className="suggestions-page">
+      <div className="suggestions-container">
+        <header className="suggestions-header">
+          <button 
+            type="button" 
+            className="suggestions-back-btn" 
+            onClick={handleBackNavigation}
+          >
+            <ArrowLeft size={18} /> Back to Portal
+          </button>
+          
+          <div className="suggestions-title-area">
+            <h1>Suggestions &amp; Requests</h1>
+            <p>Voice your thoughts or review submitted suggestions across the network.</p>
           </div>
+        </header>
 
-          <div className="college-suggestions-stat">
-            <Inbox size={22} />
-            <strong>{newCount}</strong>
-            <span>New</span>
-          </div>
+        <nav className="suggestions-tabs">
+          <button 
+            className={activeTab === "submit" ? "active" : ""} 
+            onClick={() => setActiveTab("submit")}
+          >
+            Submit Entry
+          </button>
+          <button 
+            className={activeTab === "view" ? "active" : ""} 
+            onClick={() => setActiveTab("view")}
+          >
+            View Suggestions ({requestsList.length})
+          </button>
+        </nav>
 
-          <div className="college-suggestions-stat">
-            <CalendarDays size={22} />
-            <strong>{reviewedCount}</strong>
-            <span>Reviewed</span>
-          </div>
+        {activeTab === "submit" ? (
+          <section className="suggestions-form-card">
+            <form onSubmit={handleSubmit}>
+              <div className="suggestions-type-selector">
+                <label className={suggestionType === "suggestion" ? "selected" : ""}>
+                  <input 
+                    type="radio" 
+                    name="type" 
+                    value="suggestion" 
+                    checked={suggestionType === "suggestion"} 
+                    onChange={() => setSuggestionType("suggestion")}
+                  />
+                  Campus Suggestion
+                </label>
 
-          <div className="college-suggestions-stat">
-            <CheckCircle2 size={22} />
-            <strong>{resolvedCount}</strong>
-            <span>Resolved</span>
-          </div>
-        </div>
+                <label className={suggestionType === "request" ? "selected" : ""}>
+                  <input 
+                    type="radio" 
+                    name="type" 
+                    value="request" 
+                    checked={suggestionType === "request"} 
+                    onChange={() => setSuggestionType("request")}
+                  />
+                  Resource Request
+                </label>
+              </div>
 
-        <section className="college-suggestions-section">
-          <div className="college-suggestions-section-heading">
-            <h2>Received Requests</h2>
-            <span>{suggestions.length} submissions</span>
-          </div>
+              <div className="suggestions-field">
+                <label htmlFor="sug-title">Subject / Title</label>
+                <input 
+                  id="sug-title"
+                  type="text" 
+                  placeholder="Enter request subject..."
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  required
+                />
+              </div>
 
-          {loading ? (
-            <div className="college-suggestions-empty">
-              <p>Loading requests from backend...</p>
-            </div>
-          ) : suggestions.length === 0 ? (
-            <div className="college-suggestions-empty">
-              <Inbox size={38} />
-              <h3>No requests received yet</h3>
-              <p>
-                Student suggestions submitted from the portal will appear here instantly.
-              </p>
-            </div>
-          ) : (
-            <div className="college-suggestions-list">
-              {suggestions.map((item) => (
-                <article
-                  key={item.id}
-                  className="college-suggestions-card"
-                >
-                  <div className="college-suggestions-card-top">
-                    <span className="college-suggestions-id">
-                      {item.category || "General Request"} {item.collegeId ? `(ID: ${item.collegeId})` : ""}
-                    </span>
+              <div className="suggestions-field">
+                <label htmlFor="sug-desc">Detailed Description</label>
+                <textarea 
+                  id="sug-desc"
+                  rows={5}
+                  placeholder="Provide context or specific details..."
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  required
+                />
+              </div>
 
-                    <span className="college-suggestions-status">
-                      {item.status || 'New'}
-                    </span>
-                  </div>
+              <div className="suggestions-checkbox-field">
+                <label>
+                  <input 
+                    type="checkbox" 
+                    checked={isAnonymous} 
+                    onChange={(e) => setIsAnonymous(e.target.checked)} 
+                  />
+                  Submit anonymously
+                </label>
+              </div>
 
-                  <h3>{item.subject}</h3>
-                  <p className="college-suggestions-text">
-                    {item.description}
-                  </p>
+              <button type="submit" className="suggestions-submit-btn">
+                <Send size={18} /> Submit Request
+              </button>
 
-                  <div className="college-suggestions-card-bottom">
-                    <span className="college-suggestions-date">
-                      <CalendarDays size={15} />
-                      Submitted by: <strong>{item.studentName || "Student"}</strong> ({item.email}) at {item.timestamp || 'Today'}
-                    </span>
-
-                    <select
-                      aria-label={`Status for suggestion ${item.id}`}
-                      value={item.status || 'New'}
-                      onChange={(event) =>
-                        updateStatus(item.id, event.target.value)
-                      }
-                    >
-                      <option value="New">New</option>
-                      <option value="Reviewed">Reviewed</option>
-                      <option value="Resolved">Resolved</option>
-                    </select>
-                  </div>
-                </article>
-              ))}
-            </div>
-          )}
-        </section>
-      </main>
-
-      <footer className="college-suggestions-footer">
-        <strong>OmniCampus<span>.</span></strong>
-        <span>Connecting institutions. Creating opportunities.</span>
-        <span>© {new Date().getFullYear()} OmniCampus</span>
-      </footer>
-    </div>
-  )
+              {submittedMessage && (
+                <div className={`suggestions-status-msg ${submittedMessage.startsWith("Error") ? "error" : "success"}`}>
+                  {submittedMessage.startsWith("Success") && <CheckCircle2 size={18} />}
+                  <span>{submittedMessage}</span>
+                </div>
+              )}
+            </form>
+          </section>
+        ) : (
+          <section className="suggestions-list-card">
+            {loading ? (
+              <p className="suggestions-empty">Loading entries...</p>
+            ) : requestsList.length === 0 ? (
+              <div className="suggestions-empty">
+                <MessageSquare size={32} />
+                <p>No suggestions or requests found.</p>
+              </div>
+            ) : (
+              <div className="suggestions-grid">
+                {requestsList.map((item, idx) => (
+                  <article key={item.id || idx} className="suggestion-item">
+                    <div className="suggestion-item-badge">{item.type}</div>
+                    <h3>{item.title}</h3>
+                    <p>{item.description}</p>
+                    <div className="suggestion-item-footer">
+                      <span>By: {item.author}</span>
+                      <time>{new Date(item.createdAt).toLocaleDateString()}</time>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            )}
+          </section>
+        )}
+      </div>
+    </main>
+  );
 }
