@@ -45,7 +45,6 @@ export default function StudentLogin() {
     e.preventDefault();
     setMessage("");
 
-    // Client-side domain check (blocking personal emails)
     const emailLower = (form.email || "").toLowerCase();
     const personalDomains = ["@gmail.com", "@yahoo.com", "@hotmail.com", "@outlook.com", "@icloud.com"];
     if (personalDomains.some((domain) => emailLower.endsWith(domain))) {
@@ -53,9 +52,10 @@ export default function StudentLogin() {
       return;
     }
 
+    const backendUrl = import.meta.env.VITE_API_URL || "";
     const endpoint = mode === "login" 
-      ? "/api/auth/student-login" 
-      : "/api/auth/student-register";
+      ? `${backendUrl}/api/auth/student-login` 
+      : `${backendUrl}/api/auth/student-register`;
       
     try {
       const payload = mode === "login"
@@ -81,10 +81,8 @@ export default function StudentLogin() {
         return;
       }
 
-      // Clear old profile cache to prevent stale storage collisions
       localStorage.removeItem("omnicampus_student_profile");
 
-      // Store fresh session data returned directly from the backend
       const student = data.student;
       sessionStorage.setItem("studentName", student.name || "");
       sessionStorage.setItem("userEmail", student.email || "");
@@ -95,7 +93,7 @@ export default function StudentLogin() {
 
       navigate("/student/home");
     } catch (err) {
-      setMessage("Error: Cannot connect to backend server on port 5000.");
+      setMessage("Error: Cannot connect to backend server.");
     }
   };
 
