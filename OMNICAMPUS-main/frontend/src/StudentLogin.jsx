@@ -52,7 +52,9 @@ export default function StudentLogin() {
       return;
     }
 
-    const rawUrl = (import.meta.env.VITE_API_URL || "").trim().replace(/\/+$/, "");
+    // Explicit fallback to Render live backend URL if environment variable is undefined
+    const baseBackendUrl = import.meta.env.VITE_API_URL || "https://omni-campus-backend.onrender.com";
+    const rawUrl = baseBackendUrl.trim().replace(/\/+$/, "");
     const endpoint = mode === "login" 
       ? `${rawUrl}/api/auth/student-login` 
       : `${rawUrl}/api/auth/student-register`;
