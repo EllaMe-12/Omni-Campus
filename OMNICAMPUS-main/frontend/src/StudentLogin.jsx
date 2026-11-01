@@ -52,8 +52,8 @@ export default function StudentLogin() {
       return;
     }
 
-    // Explicit fallback to Render live backend URL if environment variable is undefined
-    const baseBackendUrl = import.meta.env.VITE_API_URL || "https://omni-campus-backend.onrender.com";
+    const RENDER_BACKEND_URL = "https://omni-campus-backend-e09d.onrender.com";
+    const baseBackendUrl = import.meta.env.VITE_API_URL || RENDER_BACKEND_URL;
     const rawUrl = baseBackendUrl.trim().replace(/\/+$/, "");
     const endpoint = mode === "login" 
       ? `${rawUrl}/api/auth/student-login` 

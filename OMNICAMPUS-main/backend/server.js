@@ -6,7 +6,7 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Allow all Vercel domains and preview URLs
+// Allow cross-origin requests from Vercel deployments
 app.use(cors({
   origin: true,
   credentials: true,
@@ -42,12 +42,10 @@ function writeDatabase(data) {
   }
 }
 
-// Health check route
 app.get('/api/health', (req, res) => {
   res.status(200).json({ status: 'ok', timestamp: new Date() });
 });
 
-// Student Login
 app.post('/api/auth/student-login', (req, res) => {
   const { email, password } = req.body;
   const db = readDatabase();
@@ -73,7 +71,6 @@ app.post('/api/auth/student-login', (req, res) => {
   });
 });
 
-// Student Registration
 app.post('/api/auth/student-register', (req, res) => {
   const { name, email, password, collegeName, studentId } = req.body;
   const db = readDatabase();
@@ -122,7 +119,6 @@ app.post('/api/auth/student-register', (req, res) => {
   });
 });
 
-// Get Requests/Suggestions
 app.get('/api/requests', (req, res) => {
   const db = readDatabase();
   const collegeFilter = req.query.college;
@@ -137,7 +133,6 @@ app.get('/api/requests', (req, res) => {
   res.status(200).json(results);
 });
 
-// Create Request/Suggestion
 app.post('/api/requests', (req, res) => {
   const db = readDatabase();
   if (!db.requests) db.requests = [];
