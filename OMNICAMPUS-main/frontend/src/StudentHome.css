@@ -1,385 +1,490 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600;1,700&family=DM+Sans:wght@400;500;600;700&display=swap');
 
-.ocd-page {
-  --ocd-bg: #090d16;
-  --ocd-card-bg: rgba(255, 255, 255, 0.02);
-  --ocd-border: rgba(255, 255, 255, 0.08);
-  --ocd-text: #f1f5f9;
-  --ocd-muted: #94a3b8;
-  --ocd-gold: #d4af37;
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+/* =========================================
+   OMNICAMPUS - STUDENT HOMEPAGE
+========================================= */
+
+.student-home {
   min-height: 100vh;
-  background: var(--ocd-bg);
-  color: var(--ocd-text);
-  font-family: "DM Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  color: #0b1d3a;
+  font-family: 'DM Sans', Arial, sans-serif;
 }
 
-.ocd-page *,
-.ocd-page *::before,
-.ocd-page *::after {
+.student-home *,
+.student-home *::before,
+.student-home *::after {
   box-sizing: border-box;
 }
 
-.ocd-page button {
-  font-family: inherit;
-  cursor: pointer;
-}
+/* =========================================
+   HEADER
+========================================= */
 
-.ocd-header {
+.student-home-header {
+  min-height: 92px;
+  padding: 15px max(5.5%, calc((100% - 1120px) / 2));
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
   gap: 20px;
-  min-height: 82px;
-  padding: 15px clamp(22px, 5vw, 80px);
-  background: rgba(9, 13, 22, 0.85);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--ocd-border);
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  background: #ffffff;
 }
 
-.ocd-logo {
+.student-home-logo {
   border: 0;
   padding: 0;
-  background: none;
-  color: #fff;
-  font-family: "Cormorant Garamond", Georgia, serif !important;
+  background: transparent;
+  color: #0b1d3a;
+  font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 38px;
   font-style: italic;
-  font-weight: 700;
-  letter-spacing: -1px;
-}
-
-.ocd-logo b {
-  color: var(--ocd-gold);
-}
-
-.ocd-header-actions {
-  display: flex;
-  align-items: center;
-  gap: 25px;
-}
-
-.ocd-header-label {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .15em;
-  color: var(--ocd-muted);
-}
-
-.ocd-back {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 11px 16px;
-  border: 1px solid rgba(239, 68, 68, 0.3);
-  border-radius: 30px;
-  background: rgba(239, 68, 68, 0.1);
-  color: #fca5a5;
-  font-size: 12px;
-  font-weight: 700;
-  transition: all 0.2s ease;
-}
-
-.ocd-back:hover {
-  background: rgba(239, 68, 68, 0.2);
-  border-color: rgba(239, 68, 68, 0.6);
-}
-
-.ocd-main {
-  max-width: 1500px;
-  margin: 0 auto;
-  padding: 48px clamp(22px, 6vw, 95px) 75px;
-}
-
-.ocd-welcome {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 25px;
-  margin-bottom: 45px;
-}
-
-.ocd-eyebrow {
-  display: block;
-  color: var(--ocd-gold);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-}
-
-.ocd-welcome h1 {
-  margin: 12px 0 10px;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(46px, 5.5vw, 72px);
   font-weight: 600;
-  line-height: 1;
-  letter-spacing: -1px;
-  color: #fff;
+  letter-spacing: -0.05em;
+  cursor: pointer;
 }
 
-.ocd-welcome h1 em,
-.ocd-section-title h2 em,
-.ocd-panel-heading h2 em {
-  color: var(--ocd-gold);
-  font-weight: 500;
+.student-home-logo span,
+.student-home-footer-logo span {
+  color: #3568d4;
 }
 
-.ocd-welcome p {
-  margin: 0;
-  color: var(--ocd-muted);
-  font-size: 13px;
-  line-height: 1.8;
-}
+/* MY ACCOUNT AND SWITCH ROLE BUTTONS */
 
-.ocd-add-btn {
+.student-home-account {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 14px 20px;
+  justify-content: center;
+  gap: 14px;
+  padding: 16px 20px;
   border: 0;
-  border-radius: 10px;
-  background: var(--ocd-gold);
-  color: #090d16;
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-  transition: opacity 0.2s ease;
-}
-
-.ocd-add-btn:hover {
-  opacity: 0.9;
-}
-
-.ocd-section-title {
-  margin-bottom: 20px;
-}
-
-.ocd-section-title h2,
-.ocd-panel-heading h2 {
-  margin: 8px 0 0;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: clamp(32px, 3vw, 43px);
+  border-radius: 8px;
+  background: #0b1d3a;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 15px;
   font-weight: 600;
-  line-height: 1.1;
-  color: #fff;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
 }
 
-.ocd-stats {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 16px;
+.student-home-account:hover,
+.student-home-explore:hover {
+  background: #244a83;
+  transform: translateY(-2px);
 }
 
-.ocd-stat {
-  min-height: 160px;
-  padding: 24px;
-  border: 1px solid var(--ocd-border);
-  border-radius: 17px;
-  background: var(--ocd-card-bg);
-  backdrop-filter: blur(16px);
-  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+/* =========================================
+   HERO - TECH TEAM NAVY BLUE GRADIENT
+========================================= */
+
+.student-home .student-home-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 515px;
+
+  background-color: #0b1d3a;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(7, 22, 45, 0.92) 0%,
+      rgba(11, 29, 58, 0.78) 48%,
+      rgba(11, 29, 58, 0.42) 100%
+    ),
+    url('/images/conference-hall.jpg') !important;
+
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+
+  color: #ffffff;
 }
 
-.ocd-stat:hover {
-  transform: translateY(-4px);
-  border-color: rgba(212, 175, 55, 0.4);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
-}
-
-.ocd-stat-top {
+.student-home-hero-inner {
+  position: relative;
+  z-index: 1;
+  width: min(1120px, 89%);
+  min-height: 515px;
+  margin: 0 auto;
+  padding: 70px 0 35px;
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 12px;
-  color: var(--ocd-muted);
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.ocd-stat-top svg {
-  flex-shrink: 0;
-  color: var(--ocd-gold);
-}
-
-.ocd-stat strong {
-  display: block;
-  margin-top: 26px;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 52px;
-  font-weight: 700;
-  line-height: 1;
-  color: #fff;
-}
-
-.ocd-workspace-grid {
-  display: grid;
-  grid-template-columns: 1.1fr .9fr;
-  gap: 20px;
-  margin-top: 25px;
-}
-
-.ocd-panel {
-  min-width: 0;
-  padding: 28px;
-  border: 1px solid var(--ocd-border);
-  border-radius: 19px;
-  background: var(--ocd-card-bg);
-}
-
-.ocd-panel-heading {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 23px;
-}
-
-.ocd-heading-icon {
-  color: var(--ocd-gold);
-}
-
-.ocd-resource,
-.ocd-request {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.ocd-resource:last-child,
-.ocd-request:last-child {
-  border-bottom: none;
-}
-
-.ocd-resource {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 17px 0;
-  transition: background 0.2s ease;
-}
-
-.ocd-resource-icon {
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  width: 40px;
-  height: 40px;
-  border-radius: 11px;
-  background: rgba(212, 175, 55, 0.1);
-  color: var(--ocd-gold);
-}
-
-.ocd-resource-info {
-  display: flex;
-  flex: 1;
-  min-width: 0;
   flex-direction: column;
-  gap: 5px;
+  align-items: flex-start;
 }
 
-.ocd-resource-info strong,
-.ocd-request-top strong {
-  color: #fff;
-  font-size: 13px;
+.student-home-kicker {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  color: #568bf0;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
 }
 
-.ocd-resource-info span,
-.ocd-request-top div > span {
-  color: var(--ocd-muted);
-  font-size: 11px;
+.student-home-kicker span {
+  width: 28px;
+  height: 2px;
+  background: #3568d4;
 }
 
-.ocd-status {
+.student-home-hero h1 {
+  margin: 35px 0 22px;
+  color: #ffffff;
+  font-size: clamp(38px, 4.6vw, 61px);
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: -0.065em;
+  line-height: 1.08;
+}
+
+.student-home-hero h1 em {
+  color: #d5e2ff;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: 1.06em;
+  font-weight: 600;
+}
+
+.student-home-hero p {
+  max-width: 600px;
+  margin: 0 0 22px;
+  color: #e2e9f5;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.9;
+}
+
+.student-home-explore {
   display: inline-flex;
   align-items: center;
-  flex-shrink: 0;
-  padding: 7px 10px;
-  border-radius: 20px;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 17px 24px;
+  border: none;
+  border-radius: 8px;
+  background: #0b1d3a;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.student-home-hero-footer {
+  width: 100%;
+  margin-top: auto;
+  padding-top: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  color: #d2daea;
   font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+/* =========================================
+   NAVIGATION TILES
+========================================= */
+
+.student-home-navigation {
+  padding: 23px 5.5% 30px;
+  background: #f6f8fb;
+}
+
+.student-home-tiles {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.student-home-tile {
+  min-height: 116px;
+  padding: 18px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 13px;
+  border: 1px solid #d1d9e4;
+  border-radius: 18px;
+  background: #ebeff4;
+  color: #0b1d3a;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  font-style: italic;
+  cursor: pointer;
+  transition:
+    transform 0.25s,
+    box-shadow 0.25s,
+    background 0.25s;
+}
+
+.student-home-tile svg {
+  color: #3568d4;
+}
+
+.student-home-tile:hover {
+  transform: translateY(-5px);
+  background: #ffffff;
+  box-shadow: 0 12px 28px rgba(11, 29, 58, 0.1);
+}
+
+/* =========================================
+   FOOTER
+========================================= */
+
+.student-home-footer {
+  min-height: 136px;
+  margin-top: auto;
+  padding: 30px max(5.5%, calc((100% - 1120px) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid #e6eaf0;
+  background: #ffffff;
+  color: #8995aa;
+  font-size: 11px;
+  font-style: italic;
+}
+
+.student-home-footer-logo {
+  color: #0b1d3a;
+  font-size: 23px;
   font-weight: 700;
 }
 
-.ocd-approved {
-  background: rgba(25, 133, 104, 0.15);
-  color: #34d399;
-}
+/* =========================================
+   REQUEST MODAL
+========================================= */
 
-.ocd-rejected {
-  background: rgba(179, 75, 75, 0.15);
-  color: #fca5a5;
-}
-
-.ocd-pending {
-  background: rgba(164, 106, 19, 0.15);
-  color: #fcd34d;
-}
-
-.ocd-text-link {
+.student-request-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  padding: 20px;
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 20px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--ocd-gold);
+  justify-content: center;
+  background: rgba(5, 16, 35, 0.7);
+}
+
+.student-request-modal {
+  width: min(530px, 100%);
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 30px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.25);
+}
+
+.student-request-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.student-request-top span {
+  color: #3568d4;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+}
+
+.student-request-top h2 {
+  margin: 9px 0 0;
+  font-size: 27px;
+  color: #0b1d3a;
+}
+
+.student-request-top button {
+  padding: 7px;
+  display: flex;
+  border: none;
+  border-radius: 7px;
+  background: #eef2f7;
+  color: #0b1d3a;
+  cursor: pointer;
+}
+
+.student-request-description {
+  margin: 15px 0 24px;
+  color: #657185;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.student-request-modal form {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+}
+
+.student-request-modal label {
+  margin-top: 8px;
+  color: #0b1d3a;
   font-size: 12px;
+  font-weight: 700;
+}
+
+.student-request-modal input,
+.student-request-modal select,
+.student-request-modal textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #dce3ed;
+  border-radius: 8px;
+  outline: none;
+  background: #f8fafc;
+  color: #0b1d3a;
+  font-family: inherit;
+  font-size: 13px;
+}
+
+.student-request-modal textarea {
+  resize: vertical;
+}
+
+.student-request-modal input:focus,
+.student-request-modal select:focus,
+.student-request-modal textarea:focus {
+  border-color: #3568d4;
+  box-shadow: 0 0 0 3px rgba(53, 104, 212, 0.1);
+}
+
+.student-request-submit {
+  margin-top: 13px;
+  padding: 15px 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: none;
+  border-radius: 8px;
+  background: #3568d4;
+  color: #ffffff;
+  font-family: inherit;
   font-weight: 700;
   cursor: pointer;
 }
 
-.ocd-request {
-  padding: 18px 0;
+.student-request-submit:hover {
+  background: #2456ba;
 }
 
-.ocd-request-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 10px;
+.student-request-message {
+  padding: 12px;
+  border-radius: 8px;
+  background: #eaf1fc;
+  color: #234e98;
+  font-size: 12px;
+  line-height: 1.6;
 }
 
-.ocd-request-top > div {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
+/* =========================================
+   RESPONSIVE - TABLET
+========================================= */
 
-.ocd-empty {
-  color: var(--ocd-muted);
-  font-size: 13px;
-  padding: 20px 0;
-}
+@media (max-width: 800px) {
+  .student-home-header {
+    padding: 15px 25px;
+  }
 
-.ocd-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 28px clamp(22px, 5vw, 80px);
-  border-top: 1px solid var(--ocd-border);
-  background: rgba(9, 13, 22, 0.85);
-  color: var(--ocd-muted);
-  font-size: 11px;
-}
+  .student-home-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 
-.ocd-footer-brand {
-  color: #fff;
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 29px;
-  font-style: italic;
-  font-weight: 700;
-}
+  .student-home-hero-inner {
+    padding-top: 55px;
+  }
 
-@media (max-width: 1000px) {
-  .ocd-workspace-grid {
-    grid-template-columns: 1fr;
+  .student-home-footer {
+    padding: 30px 25px;
   }
 }
 
-@media (max-width: 800px) {
-  .ocd-stats {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+/* =========================================
+   RESPONSIVE - MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+  .student-home-header {
+    min-height: 75px;
+    height: auto;
+    padding: 15px 18px;
+    flex-wrap: wrap;
+  }
+
+  .student-home-logo {
+    font-size: 29px;
+  }
+
+  .student-home-account {
+    padding: 11px 12px;
+    font-size: 11px;
+    gap: 7px;
+  }
+
+  .student-home-account svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .student-home-hero,
+  .student-home-hero-inner {
+    min-height: 490px;
+  }
+
+  .student-home-hero-inner {
+    width: 90%;
+    padding-top: 55px;
+  }
+
+  .student-home-hero h1 {
+    font-size: 39px;
+  }
+
+  .student-home-hero p {
+    font-size: 12px;
+  }
+
+  .student-home-hero-footer {
+    font-size: 8px;
+  }
+
+  .student-home-navigation {
+    padding: 20px 15px;
+  }
+
+  .student-home-tiles {
+    gap: 10px;
+  }
+
+  .student-home-tile {
+    min-height: 105px;
+    font-size: 11px;
+  }
+
+  .student-home-footer {
+    flex-direction: column;
+    text-align: center;
+    gap: 12px;
+  }
+
+  .student-request-modal {
+    padding: 22px;
   }
 }
