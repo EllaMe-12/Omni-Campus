@@ -1,228 +1,169 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Send, CheckCircle2, MessageSquare } from "lucide-react";
-import "./SuggestionsAndRequests.css";
+import { ArrowLeft, Send, MessageSquare, CheckCircle2, Building2 } from "lucide-react";
+import "./StudentHome.css";
 
-export default function SuggestionsAndRequests() {
+export default function CollegeSuggestions() {
   const navigate = useNavigate();
 
-  const [activeTab, setActiveTab] = useState("submit");
-  const [suggestionType, setSuggestionType] = useState("suggestion");
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [isAnonymous, setIsAnonymous] = useState(false);
-  const [submittedMessage, setSubmittedMessage] = useState("");
-  const [requestsList, setRequestsList] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [type, setType] = useState("Suggestion");
+  const [submitting, setSubmitting] = useState(false);
+  const [message, setMessage] = useState("");
+  const [requests, setRequests] = useState([]);
 
-  const studentName = sessionStorage.getItem("studentName") || "Tech Admin";
-  const userEmail = sessionStorage.getItem("userEmail") || "";
-  const collegeName = sessionStorage.getItem("collegeName") || "OmniCampus Portal";
+  const collegeName = sessionStorage.getItem("collegeName") || "Your Institution";
+  const studentName = sessionStorage.getItem("studentName") || "Student";
 
   useEffect(() => {
-    if (activeTab === "view") {
-      fetchRequests();
-    }
-  }, [activeTab]);
+    fetchRequests();
+  }, [collegeName]);
 
   const fetchRequests = async () => {
-    setLoading(true);
     try {
-      const rawUrl = (import.meta.env.VITE_API_URL || "").trim().replace(/\/+$/, "");
-      const response = await fetch(`${rawUrl}/api/requests`);
-      if (response.ok) {
-        const data = await response.json();
-        setRequestsList(data);
+      const rawUrl = (import.meta.env.VITE_API_URL || "https://omni-campus-backend-e09d.onrender.com").trim().replace(/\/+$/, "");
+      const res = await fetch(`${rawUrl}/api/requests?college=${encodeURIComponent(collegeName)}`);
+      if (res.ok) {
+        const data = await res.json();
+        setRequests(data);
       }
     } catch (err) {
-      console.error("Failed to fetch suggestions:", err);
-    } finally {
-      setLoading(false);
+      console.error("Error fetching requests:", err);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmittedMessage("");
-
-    if (!title || !description) {
-      setSubmittedMessage("Error: Please fill in all required fields.");
+    if (!title.trim() || !description.trim()) {
+      setMessage("Error: Please fill in all fields.");
       return;
     }
 
-    const payload = {
-      type: suggestionType,
-      title,
-      description,
-      isAnonymous,
-      author: isAnonymous ? "Anonymous User" : studentName,
-      authorEmail: isAnonymous ? "" : userEmail,
-      collegeName,
-      createdAt: new Date().toISOString()
-    };
+    setSubmitting(true);
+    setMessage("");
 
     try {
-      const rawUrl = (import.meta.env.VITE_API_URL || "").trim().replace(/\/+$/, "");
-      const response = await fetch(`${rawUrl}/api/requests`, {
+      const rawUrl = (import.meta.env.VITE_API_URL || "https://omni-campus-backend-e09d.onrender.com").trim().replace(/\/+$/, "");
+      const res = await fetch(`${rawUrl}/api/requests`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({
+          title,
+          description,
+          type,
+          collegeName,
+          author: studentName
+        })
       });
 
-      if (response.ok) {
-        setSubmittedMessage("Success: Your entry has been submitted successfully.");
+      if (res.ok) {
         setTitle("");
         setDescription("");
+        setMessage("Success: Submitted successfully!");
+        fetchRequests();
       } else {
-        const data = await response.json();
-        setSubmittedMessage("Error: " + (data.message || "Submission failed."));
+        setMessage("Error: Failed to submit request.");
       }
     } catch (err) {
-      setSubmittedMessage("Error: Cannot connect to server.");
-    }
-  };
-
-  const handleBackNavigation = () => {
-    if (sessionStorage.getItem("studentName")) {
-      navigate("/student/home");
-    } else {
-      navigate("/");
+      setMessage("Error: Cannot connect to server.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <main className="suggestions-page">
-      <div className="suggestions-container">
-        <header className="suggestions-header">
-          <button 
-            type="button" 
-            className="suggestions-back-btn" 
-            onClick={handleBackNavigation}
-          >
-            <ArrowLeft size={18} /> Back to Portal
-          </button>
-          
-          <div className="suggestions-title-area">
-            <h1>Suggestions &amp; Requests</h1>
-            <p>Voice your thoughts or review submitted suggestions across the network.</p>
+    <main className="student-home-page">
+      <header className="student-top-nav">
+        <button className="nav-logout-btn" onClick={() => navigate("/student/home")}>
+          <ArrowLeft size={16} /> Back to Dashboard
+        </button>
+        <div className="nav-brand" style={{ textAlign: "right" }}>
+          <span className="brand-title">Suggestions &amp; Requests</span>
+          <span className="brand-subtitle">{collegeName}</span>
+        </div>
+      </header>
+
+      <div className="student-dashboard-content" style={{ maxWidth: "900px" }}>
+        <section className="welcome-banner" style={{ marginBottom: "2rem" }}>
+          <h1>Voice your <em>campus needs.</em></h1>
+          <p>Submit resource requests, infrastructure feedback, or event suggestions directly to your college network.</p>
+        </section>
+
+        <form onSubmit={handleSubmit} className="tile-card" style={{ maxWidth: "100%", cursor: "default", marginBottom: "3rem", padding: "2rem" }}>
+          <h3 style={{ marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
+            <MessageSquare size={20} color="#d4af37" /> Create New Submission
+          </h3>
+
+          <div style={{ marginBottom: "1.25rem" }}>
+            <label style={{ display: "block", fontSize: "0.85rem", color: "#94a3b8", marginBottom: "0.5rem" }}>Submission Type</label>
+            <select 
+              value={type} 
+              onChange={(e) => setType(e.target.value)}
+              style={{ width: "100%", padding: "0.75rem", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "8px", color: "#fff" }}
+            >
+              <option value="Suggestion" style={{ background: "#090d16" }}>Campus Suggestion</option>
+              <option value="Resource Request" style={{ background: "#090d16" }}>Resource Request</option>
+              <option value="Infrastructure" style={{ background: "#090d16" }}>Infrastructure Issue</option>
+            </select>
           </div>
-        </header>
 
-        <nav className="suggestions-tabs">
-          <button 
-            className={activeTab === "submit" ? "active" : ""} 
-            onClick={() => setActiveTab("submit")}
-          >
-            Submit Entry
+          <div style={{ marginBottom: "1.25rem" }}>
+            <label style={{ display: "block", fontSize: "0.85rem", color: "#94a3b8", marginBottom: "0.5rem" }}>Title</label>
+            <input 
+              type="text" 
+              placeholder="Brief summary of your suggestion or request" 
+              value={title} 
+              onChange={(e) => setTitle(e.target.value)}
+              required
+              style={{ width: "100%", padding: "0.75rem", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "8px", color: "#fff", boxSizing: "border-box" }}
+            />
+          </div>
+
+          <div style={{ marginBottom: "1.5rem" }}>
+            <label style={{ display: "block", fontSize: "0.85rem", color: "#94a3b8", marginBottom: "0.5rem" }}>Description</label>
+            <textarea 
+              rows="4" 
+              placeholder="Provide clear details..." 
+              value={description} 
+              onChange={(e) => setDescription(e.target.value)}
+              required
+              style={{ width: "100%", padding: "0.75rem", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "8px", color: "#fff", boxSizing: "border-box", resize: "vertical" }}
+            />
+          </div>
+
+          <button type="submit" disabled={submitting} className="tile-action" style={{ background: "#d4af37", color: "#090d16", border: "none", padding: "0.75rem 1.5rem", borderRadius: "8px", fontWeight: "600", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
+            <Send size={16} /> {submitting ? "Submitting..." : "Submit to College"}
           </button>
-          <button 
-            className={activeTab === "view" ? "active" : ""} 
-            onClick={() => setActiveTab("view")}
-          >
-            View Suggestions ({requestsList.length})
-          </button>
-        </nav>
 
-        {activeTab === "submit" ? (
-          <section className="suggestions-form-card">
-            <form onSubmit={handleSubmit}>
-              <div className="suggestions-type-selector">
-                <label className={suggestionType === "suggestion" ? "selected" : ""}>
-                  <input 
-                    type="radio" 
-                    name="type" 
-                    value="suggestion" 
-                    checked={suggestionType === "suggestion"} 
-                    onChange={() => setSuggestionType("suggestion")}
-                  />
-                  Campus Suggestion
-                </label>
+          {message && (
+            <p style={{ marginTop: "1rem", color: message.startsWith("Error") ? "#ef4444" : "#059669", fontSize: "0.9rem" }}>
+              {message}
+            </p>
+          )}
+        </form>
 
-                <label className={suggestionType === "request" ? "selected" : ""}>
-                  <input 
-                    type="radio" 
-                    name="type" 
-                    value="request" 
-                    checked={suggestionType === "request"} 
-                    onChange={() => setSuggestionType("request")}
-                  />
-                  Resource Request
-                </label>
-              </div>
-
-              <div className="suggestions-field">
-                <label htmlFor="sug-title">Subject / Title</label>
-                <input 
-                  id="sug-title"
-                  type="text" 
-                  placeholder="Enter request subject..."
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="suggestions-field">
-                <label htmlFor="sug-desc">Detailed Description</label>
-                <textarea 
-                  id="sug-desc"
-                  rows={5}
-                  placeholder="Provide context or specific details..."
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="suggestions-checkbox-field">
-                <label>
-                  <input 
-                    type="checkbox" 
-                    checked={isAnonymous} 
-                    onChange={(e) => setIsAnonymous(e.target.checked)} 
-                  />
-                  Submit anonymously
-                </label>
-              </div>
-
-              <button type="submit" className="suggestions-submit-btn">
-                <Send size={18} /> Submit Request
-              </button>
-
-              {submittedMessage && (
-                <div className={`suggestions-status-msg ${submittedMessage.startsWith("Error") ? "error" : "success"}`}>
-                  {submittedMessage.startsWith("Success") && <CheckCircle2 size={18} />}
-                  <span>{submittedMessage}</span>
+        <h2 className="section-heading">Recent Submissions ({requests.length})</h2>
+        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+          {requests.length === 0 ? (
+            <p style={{ color: "#64748b" }}>No submissions yet for {collegeName}.</p>
+          ) : (
+            requests.map((req, idx) => (
+              <div key={req.id || idx} className="tile-card" style={{ maxWidth: "100%", cursor: "default" }}>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
+                  <span className="badge">{req.type}</span>
+                  <span style={{ fontSize: "0.75rem", color: "#64748b" }}>{new Date(req.createdAt).toLocaleDateString()}</span>
                 </div>
-              )}
-            </form>
-          </section>
-        ) : (
-          <section className="suggestions-list-card">
-            {loading ? (
-              <p className="suggestions-empty">Loading entries...</p>
-            ) : requestsList.length === 0 ? (
-              <div className="suggestions-empty">
-                <MessageSquare size={32} />
-                <p>No suggestions or requests found.</p>
+                <h4 style={{ color: "#fff", fontSize: "1.1rem", marginBottom: "0.5rem" }}>{req.title}</h4>
+                <p style={{ color: "#94a3b8", fontSize: "0.9rem", marginBottom: "1rem" }}>{req.description}</p>
+                <div className="tile-footer">
+                  <span>Submitted by: {req.author}</span>
+                  <span style={{ color: "#d4af37" }}><Building2 size={14} style={{ display: "inline", marginRight: "4px" }} />{req.collegeName}</span>
+                </div>
               </div>
-            ) : (
-              <div className="suggestions-grid">
-                {requestsList.map((item, idx) => (
-                  <article key={item.id || idx} className="suggestion-item">
-                    <div className="suggestion-item-badge">{item.type}</div>
-                    <h3>{item.title}</h3>
-                    <p>{item.description}</p>
-                    <div className="suggestion-item-footer">
-                      <span>By: {item.author}</span>
-                      <time>{new Date(item.createdAt).toLocaleDateString()}</time>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            )}
-          </section>
-        )}
+            ))
+          )}
+        </div>
       </div>
     </main>
   );
