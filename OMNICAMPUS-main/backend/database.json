@@ -89,6 +89,21 @@
       "representative": "Administrator",
       "designation": "Coordinator",
       "password": "admin123"
+    },
+    {
+      "id": "inst-1793495502606",
+      "name": "iitb",
+      "code": "iitb-129",
+      "type": "Engineering College",
+      "university": "Affiliated University",
+      "location": "powai, mumbai",
+      "address": "powai, mumbai",
+      "email": "admin@iitb.edu",
+      "phone": "8376267241",
+      "website": "https://institution.edu",
+      "representative": "Administrator",
+      "designation": "Coordinator",
+      "password": "admin"
     }
   ],
   "requests": [
