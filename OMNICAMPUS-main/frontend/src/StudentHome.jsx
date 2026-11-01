@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { 
-  Home, 
-  BookOpen, 
-  MessageSquare, 
-  LogOut, 
-  User, 
-  ArrowRight, 
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  Boxes,
+  CheckCircle2,
+  Clock3,
+  MessageSquare,
+  Compass,
+  User,
+  LogOut,
   Bell,
-  Compass
+  BookOpen,
+  Send
 } from "lucide-react";
-import "./StudentHome.css";
+import "./Dashboard.css"; // Uses the exact same stylesheet as the Admin Dashboard
 
 export default function StudentHome() {
   const navigate = useNavigate();
@@ -18,34 +22,34 @@ export default function StudentHome() {
   const [studentName, setStudentName] = useState("Student");
   const [collegeName, setCollegeName] = useState("Institution");
   const [studentId, setStudentId] = useState("");
-  const [events, setEvents] = useState([]);
-  const [loadingEvents, setLoadingEvents] = useState(false);
+  const [requests, setRequests] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const name = sessionStorage.getItem("studentName");
-    const college = sessionStorage.getItem("collegeName");
-    const id = sessionStorage.getItem("studentId");
+    const name = sessionStorage.getItem("studentName") || "Student";
+    const college = sessionStorage.getItem("collegeName") || "Your Institution";
+    const id = sessionStorage.getItem("studentId") || "STD-2026";
 
-    if (name) setStudentName(name);
-    if (college) setCollegeName(college);
-    if (id) setStudentId(id);
+    setStudentName(name);
+    setCollegeName(college);
+    setStudentId(id);
 
-    fetchCampusEvents(college);
+    fetchRequests(college);
   }, []);
 
-  const fetchCampusEvents = async (college) => {
-    setLoadingEvents(true);
+  const fetchRequests = async (college) => {
+    setLoading(true);
     try {
       const rawUrl = (import.meta.env.VITE_API_URL || "https://omni-campus-backend-e09d.onrender.com").trim().replace(/\/+$/, "");
-      const res = await fetch(`${rawUrl}/api/requests?college=${encodeURIComponent(college || "")}`);
+      const res = await fetch(`${rawUrl}/api/requests?college=${encodeURIComponent(college)}`);
       if (res.ok) {
         const data = await res.json();
-        setEvents(data);
+        setRequests(data);
       }
     } catch (err) {
-      console.error("Failed to load events:", err);
+      console.error("Failed to load requests:", err);
     } finally {
-      setLoadingEvents(false);
+      setLoading(false);
     }
   };
 
@@ -54,89 +58,204 @@ export default function StudentHome() {
     navigate("/student/login");
   };
 
+  const stats = [
+    {
+      label: "My Submissions",
+      value: requests.filter((r) => r.author === studentName).length || requests.length,
+      icon: MessageSquare,
+    },
+    {
+      label: "Campus Requests",
+      value: requests.length,
+      icon: Boxes,
+    },
+    {
+      label: "Account Status",
+      value: "Verified",
+      icon: CheckCircle2,
+    },
+    {
+      label: "Network Status",
+      value: "Active",
+      icon: Clock3,
+    },
+  ];
+
   return (
-    <main className="student-home-page">
-      <header className="student-top-nav">
-        <div className="nav-brand">
-          <span className="brand-title">OmniCampus</span>
-          <span className="brand-subtitle">{collegeName}</span>
-        </div>
-        <div className="nav-actions">
-          <button className="nav-icon-btn" aria-label="Notifications"><Bell size={18} /></button>
-          <button className="nav-logout-btn" onClick={handleLogout}>
-            <LogOut size={16} /> Sign Out
+    <div className="ocd-page">
+      {/* Header matching Admin Dashboard */}
+      <header className="ocd-header">
+        <button className="ocd-logo" onClick={() => navigate("/student/home")}>
+          Omni<span>Campus</span><b>.</b>
+        </button>
+
+        <div className="ocd-header-actions">
+          <span className="ocd-header-label">STUDENT PORTAL</span>
+          <button className="ocd-back" onClick={handleLogout}>
+            <LogOut size={16} />
+            Sign Out
           </button>
         </div>
       </header>
 
-      <div className="student-dashboard-content">
-        <section className="welcome-banner">
-          <h1>Welcome back, <em>{studentName}</em>.</h1>
-          <p>Your institutional workspace &amp; campus network hub. ID: {studentId || "Verified Student"}</p>
+      <main className="ocd-main">
+        {/* Welcome Section */}
+        <section className="ocd-welcome">
+          <div>
+            <span className="ocd-eyebrow">{collegeName.toUpperCase()}</span>
+            <h1>
+              Welcome back, <em>{studentName}</em>.
+            </h1>
+            <p>
+              Your institutional student hub &amp; campus network portal. ID: {studentId}
+            </p>
+          </div>
+
+          <button className="ocd-add-btn" onClick={() => navigate("/student/requests")}>
+            <Send size={16} />
+            New Suggestion
+          </button>
         </section>
 
-        <h2 className="section-heading">Quick Navigation &amp; Portals</h2>
-        
-        <div className="horizontal-tiles-container">
-          <div className="tile-card" onClick={() => navigate("/student/home")}>
-            <div className="tile-icon"><Home size={24} /></div>
-            <h3>Dashboard Home</h3>
-            <p>Overview of your active sessions, announcements, and quick stats.</p>
-            <span className="tile-action">Active <ArrowRight size={14} /></span>
-          </div>
-
-          <div className="tile-card" onClick={() => navigate("/student/requests")}>
-            <div className="tile-icon"><MessageSquare size={24} /></div>
-            <h3>Suggestions &amp; Requests</h3>
-            <p>Voice campus improvements or submit resource requests anonymously.</p>
-            <span className="tile-action">Open Portal <ArrowRight size={14} /></span>
-          </div>
-
-          <div className="tile-card" onClick={() => navigate("/student/upcoming-events")}>
-            <div className="tile-icon"><Compass size={24} /></div>
-            <h3>Campus Explorer</h3>
-            <p>Discover cross-institutional events, hackathons, and seminars.</p>
-            <span className="tile-action">Explore <ArrowRight size={14} /></span>
-          </div>
-
-          <div className="tile-card" onClick={() => navigate("/student/profile")}>
-            <div className="tile-icon"><User size={24} /></div>
-            <h3>Student Profile</h3>
-            <p>Manage your academic credentials, verified email, and settings.</p>
-            <span className="tile-action">View Profile <ArrowRight size={14} /></span>
-          </div>
-        </div>
-
-        <section className="feed-section">
-          <div className="feed-header">
-            <h2>Recent Campus Activity</h2>
-            <span>{events.length} Entries</span>
-          </div>
-
-          {loadingEvents ? (
-            <p className="feed-status">Loading feed...</p>
-          ) : events.length === 0 ? (
-            <div className="feed-empty">
-              <BookOpen size={28} />
-              <p>No recent announcements or requests recorded for {collegeName}.</p>
+        {/* Overview Stats matching Admin Grid */}
+        <section className="ocd-overview">
+          <div className="ocd-section-title">
+            <div>
+              <span className="ocd-eyebrow">OVERVIEW</span>
+              <h2>
+                At a <em>glance.</em>
+              </h2>
             </div>
-          ) : (
-            <div className="horizontal-tiles-container feed-tiles">
-              {events.map((ev, i) => (
-                <div key={ev.id || i} className="tile-card feed-card">
-                  <span className="badge">{ev.type || "Notice"}</span>
-                  <h4>{ev.title}</h4>
-                  <p>{ev.description}</p>
-                  <div className="tile-footer">
-                    <span>By: {ev.author}</span>
-                    <time>{new Date(ev.createdAt).toLocaleDateString()}</time>
+          </div>
+
+          <div className="ocd-stats">
+            {stats.map((stat) => {
+              const Icon = stat.icon;
+              return (
+                <article className="ocd-stat" key={stat.label}>
+                  <div className="ocd-stat-top">
+                    <span>{stat.label}</span>
+                    <Icon size={22} strokeWidth={1.7} />
                   </div>
-                </div>
-              ))}
-            </div>
-          )}
+                  <strong>{stat.value}</strong>
+                </article>
+              );
+            })}
+          </div>
         </section>
-      </div>
-    </main>
+
+        {/* Workspace Grid Layout matching Admin Dashboard */}
+        <div className="ocd-workspace-grid">
+          {/* Quick Portals Panel */}
+          <section className="ocd-panel">
+            <div className="ocd-panel-heading">
+              <div>
+                <span className="ocd-eyebrow">STUDENT NAVIGATION</span>
+                <h2>
+                  Quick <em>Portals.</em>
+                </h2>
+              </div>
+            </div>
+
+            <div className="ocd-resource-list">
+              <div 
+                className="ocd-resource" 
+                onClick={() => navigate("/student/requests")}
+                style={{ cursor: "pointer" }}
+              >
+                <div className="ocd-resource-icon">
+                  <MessageSquare size={20} />
+                </div>
+                <div className="ocd-resource-info">
+                  <strong>Suggestions &amp; Requests</strong>
+                  <span>Voice campus improvements &amp; submit resource requests</span>
+                </div>
+                <span className="ocd-status ocd-approved">Open</span>
+              </div>
+
+              <div 
+                className="ocd-resource" 
+                onClick={() => navigate("/student/upcoming-events")}
+                style={{ cursor: "pointer" }}
+              >
+                <div className="ocd-resource-icon">
+                  <Compass size={20} />
+                </div>
+                <div className="ocd-resource-info">
+                  <strong>Campus Explorer</strong>
+                  <span>Discover cross-institutional events, hackathons &amp; seminars</span>
+                </div>
+                <span className="ocd-status ocd-approved">Explore</span>
+              </div>
+
+              <div 
+                className="ocd-resource" 
+                onClick={() => navigate("/student/profile")}
+                style={{ cursor: "pointer" }}
+              >
+                <div className="ocd-resource-icon">
+                  <User size={20} />
+                </div>
+                <div className="ocd-resource-info">
+                  <strong>Student Profile</strong>
+                  <span>View &amp; manage your academic credentials and verified info</span>
+                </div>
+                <span className="ocd-status ocd-approved">View</span>
+              </div>
+            </div>
+          </section>
+
+          {/* Activity & Submissions Panel */}
+          <section className="ocd-panel">
+            <div className="ocd-panel-heading">
+              <div>
+                <span className="ocd-eyebrow">RECENT ACTIVITY</span>
+                <h2>
+                  Campus <em>Feed.</em>
+                </h2>
+              </div>
+              <BookOpen size={22} className="ocd-heading-icon" />
+            </div>
+
+            <div className="ocd-request-list">
+              {loading ? (
+                <p className="ocd-empty">Loading campus feed...</p>
+              ) : requests.length === 0 ? (
+                <p className="ocd-empty">No recent activity recorded for {collegeName}.</p>
+              ) : (
+                requests.map((req, idx) => (
+                  <div className="ocd-request" key={req.id || idx}>
+                    <div className="ocd-request-top">
+                      <div>
+                        <strong>{req.title}</strong>
+                        <span>By {req.author} • {req.type || "Suggestion"}</span>
+                      </div>
+                      <span className={`ocd-status ${req.status === "Approved" ? "ocd-approved" : req.status === "Rejected" ? "ocd-rejected" : "ocd-pending"}`}>
+                        {req.status || "Pending"}
+                      </span>
+                    </div>
+                  </div>
+                ))
+              )}
+            </div>
+
+            <button
+              className="ocd-text-link"
+              onClick={() => navigate("/student/requests")}
+            >
+              View all submissions
+              <ArrowUpRight size={16} />
+            </button>
+          </section>
+        </div>
+      </main>
+
+      {/* Footer matching Admin Dashboard */}
+      <footer className="ocd-footer">
+        <span className="ocd-footer-brand">OmniCampus.</span>
+        <span>Connecting students &amp; institutions.</span>
+        <span>© {new Date().getFullYear()} OmniCampus</span>
+      </footer>
+    </div>
   );
 }

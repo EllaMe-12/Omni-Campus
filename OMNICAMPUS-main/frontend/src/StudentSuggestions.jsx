@@ -1,132 +1,142 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Send, MessageSquare } from 'lucide-react';
-import './StudentSuggestions.css';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ArrowLeft, Send, MessageSquare } from "lucide-react";
+import "./StudentSuggestions.css";
 
 export default function StudentSuggestions() {
   const navigate = useNavigate();
 
-  const [category, setCategory] = useState('Resource Shortage');
-  const [subject, setSubject] = useState('');
-  const [description, setDescription] = useState('');
-  const [message, setMessage] = useState('');
+  const [category, setCategory] = useState("Resource Shortage");
+  const [subject, setSubject] = useState("");
+  const [description, setDescription] = useState("");
+  const [submitting, setSubmitting] = useState(false);
+  const [message, setMessage] = useState("");
 
-  const collegeName = sessionStorage.getItem("collegeName") || "K J Somaiya Institute of Technology";
-  const studentEmail = sessionStorage.getItem("userEmail") || "student@institute.edu";
-  const studentName = sessionStorage.getItem("studentName") || "Student User";
-  const collegeId = sessionStorage.getItem("studentId") || sessionStorage.getItem("collegeId") || "D-32";
+  const collegeName = sessionStorage.getItem("collegeName") || "Your Institution";
+  const studentName = sessionStorage.getItem("studentName") || "Student";
+  const studentEmail = sessionStorage.getItem("userEmail") || "student@institution.edu";
+  const studentId = sessionStorage.getItem("studentId") || "STD-01";
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (!subject.trim() || !description.trim()) {
-      setMessage('Please fill in all required fields.');
+      setMessage("Error: Please fill in all fields.");
       return;
     }
 
-    const newRequest = {
-      studentName: studentName,
-      email: studentEmail,
-      college: collegeName,
-      collegeId: collegeId,
-      category: category,
-      subject: subject.trim(),
-      description: description.trim(),
-    };
+    setSubmitting(true);
+    setMessage("");
 
     try {
-      const response = await fetch("/api/requests", {
+      const rawUrl = (import.meta.env.VITE_API_URL || "https://omni-campus-backend-e09d.onrender.com").trim().replace(/\/+$/, "");
+      const res = await fetch(`${rawUrl}/api/requests`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newRequest)
+        body: JSON.stringify({
+          title: subject,
+          description,
+          type: category,
+          collegeName,
+          author: studentName,
+          email: studentEmail,
+          collegeId: studentId
+        })
       });
 
-      const data = await response.json();
-      if (response.ok && data.success) {
-        setMessage("Success! Your request has been sent directly to your college tech team.");
-        setSubject('');
-        setDescription('');
+      if (res.ok) {
+        setSubject("");
+        setDescription("");
+        setMessage("Success: Request submitted successfully to college administration!");
       } else {
-        setMessage("Error: " + (data.message || "Failed to submit request."));
+        setMessage("Error: Failed to submit request.");
       }
     } catch (err) {
-      setMessage("Error: Cannot connect to backend server on port 5000.");
+      setMessage("Error: Cannot connect to backend server.");
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <div className="student-suggestions-page">
-      <header className="student-suggestions-header">
-        <button type="button" className="student-suggestions-logo" onClick={() => navigate('/student/home')}>
-          OmniCampus<span>.</span>
+    <div className="student-suggestions-page" style={{ background: "#090d16", color: "#f1f5f9" }}>
+      <header className="student-suggestions-header" style={{ background: "rgba(9, 13, 22, 0.85)", borderBottom: "1px solid rgba(255,255,255,0.08)" }}>
+        <button className="student-suggestions-logo" onClick={() => navigate("/student/home")} style={{ color: "#fff" }}>
+          Omni<span>Campus</span>
         </button>
-
-        <button type="button" className="student-suggestions-back" onClick={() => navigate('/student/home')}>
-          <ArrowLeft size={17} /> Back to Home
+        <button className="student-suggestions-back" onClick={() => navigate("/student/home")} style={{ background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.1)", color: "#cbd5e1" }}>
+          <ArrowLeft size={16} /> Back to Dashboard
         </button>
       </header>
 
       <main className="student-suggestions-main">
+        <span className="student-suggestions-kicker" style={{ color: "#d4af37" }}>CAMPUS VOICE &amp; RESOURCES</span>
         <div className="student-suggestions-heading">
-          <span className="student-suggestions-kicker">
-            | {collegeName.toUpperCase()} / STUDENT PORTAL
-          </span>
-          <h1>Suggestions <em>& Requests.</em></h1>
-          <p>Report a resource shortage, share a suggestion, or raise an issue for your tech team to review.</p>
+          <h1 style={{ color: "#fff" }}>Suggestions &amp; <em>Requests</em></h1>
+          <p style={{ color: "#94a3b8" }}>Voice campus improvements, request facilities, or submit feedback directly to {collegeName} administration.</p>
         </div>
 
-        <form className="student-suggestions-card" onSubmit={handleSubmit}>
-          <div className="student-suggestions-icon">
-            <MessageSquare size={25} />
+        <form onSubmit={handleSubmit} className="student-suggestions-card" style={{ background: "rgba(255,255,255,0.02)", borderColor: "rgba(255,255,255,0.08)" }}>
+          <div className="student-suggestions-icon" style={{ background: "rgba(212,175,55,0.1)", color: "#d4af37" }}>
+            <MessageSquare size={24} />
           </div>
 
-          <label htmlFor="request-category">Request Category</label>
-          <select 
-            id="request-category"
-            value={category} 
-            onChange={(e) => setCategory(e.target.value)}
-            style={{ width: '100%', padding: '10px', marginBottom: '15px', borderRadius: '8px', border: '1px solid #cbd5e1' }}
-          >
-            <option value="Resource Shortage">Resource Shortage</option>
-            <option value="Facility Issue">Facility Issue</option>
-            <option value="Academic Suggestion">Academic Suggestion</option>
-            <option value="Event Proposal">Event Proposal</option>
-          </select>
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{ color: "#cbd5e1" }}>Request Category</label>
+            <select 
+              value={category} 
+              onChange={(e) => setCategory(e.target.value)}
+              style={{ width: "100%", padding: "14px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "9px", background: "rgba(255,255,255,0.05)", color: "#fff", fontFamily: "inherit" }}
+            >
+              <option value="Resource Shortage" style={{ background: "#090d16" }}>Resource Shortage</option>
+              <option value="Classroom Facilities" style={{ background: "#090d16" }}>Classroom Facilities</option>
+              <option value="Technical Support" style={{ background: "#090d16" }}>Technical Support</option>
+              <option value="Campus Event" style={{ background: "#090d16" }}>Campus Event Suggestion</option>
+            </select>
+          </div>
 
-          <label htmlFor="request-subject">Subject</label>
-          <input
-            id="request-subject"
-            type="text"
-            placeholder="e.g. Chemistry book shortage in library"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            required
-            style={{ width: '100%', padding: '10px', marginBottom: '15px', borderRadius: '8px', border: '1px solid #cbd5e1' }}
-          />
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{ color: "#cbd5e1" }}>Subject</label>
+            <input 
+              type="text" 
+              placeholder="e.g. Additional library books needed" 
+              value={subject} 
+              onChange={(e) => setSubject(e.target.value)}
+              required
+              style={{ width: "100%", padding: "14px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "9px", background: "rgba(255,255,255,0.05)", color: "#fff", fontFamily: "inherit", boxSizing: "border-box" }}
+            />
+          </div>
 
-          <label htmlFor="request-description">Description</label>
-          <textarea
-            id="request-description"
-            placeholder="Describe your request or shortage details..."
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            rows={5}
-            required
-            style={{ width: '100%', padding: '10px', marginBottom: '15px', borderRadius: '8px', border: '1px solid #cbd5e1' }}
-          />
+          <div style={{ marginBottom: "25px" }}>
+            <label style={{ color: "#cbd5e1" }}>Description</label>
+            <textarea 
+              rows="5" 
+              placeholder="Provide clear details regarding your request..." 
+              value={description} 
+              onChange={(e) => setDescription(e.target.value)}
+              required
+              style={{ width: "100%", padding: "14px", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "9px", background: "rgba(255,255,255,0.05)", color: "#fff", fontFamily: "inherit", boxSizing: "border-box", resize: "vertical" }}
+            />
+          </div>
 
-          <button type="submit" className="student-signin-button" style={{ width: '100%', padding: '12px', cursor: 'pointer' }}>
-            <span>Submit Request</span>
-            <Send size={17} />
-          </button>
+          <div className="student-suggestions-bottom">
+            <span>Submitting as: <strong>{studentName}</strong> ({collegeName})</span>
+            <button type="submit" disabled={submitting} style={{ background: "#d4af37", color: "#090d16" }}>
+              <Send size={16} /> {submitting ? "Submitting..." : "Submit Request"}
+            </button>
+          </div>
 
           {message && (
-            <p className="student-suggestions-message" role="status" style={{ marginTop: '15px', fontWeight: '600', color: message.startsWith('Success') ? '#059669' : '#dc2626' }}>
+            <p className="student-suggestions-message" style={{ color: message.startsWith("Error") ? "#fca5a5" : "#34d399", fontWeight: "600" }}>
               {message}
             </p>
           )}
         </form>
       </main>
+
+      <footer className="student-suggestions-footer" style={{ background: "rgba(9, 13, 22, 0.85)", borderTop: "1px solid rgba(255,255,255,0.08)", color: "#94a3b8" }}>
+        <strong style={{ color: "#fff" }}>Omni<span>Campus</span></strong>
+        <span>© {new Date().getFullYear()} OmniCampus. All rights reserved.</span>
+      </footer>
     </div>
   );
 }
