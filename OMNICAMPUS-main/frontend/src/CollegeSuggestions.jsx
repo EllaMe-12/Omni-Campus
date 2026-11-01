@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Send, MessageSquare, CheckCircle2, Building2 } from "lucide-react";
-import "./StudentHome.css";
+import { ArrowLeft, Send, MessageSquare, Building2 } from "lucide-react";
+import "./CollegeSuggestions.css";
 
 export default function CollegeSuggestions() {
   const navigate = useNavigate();
@@ -73,98 +73,110 @@ export default function CollegeSuggestions() {
   };
 
   return (
-    <main className="student-home-page">
-      <header className="student-top-nav">
-        <button className="nav-logout-btn" onClick={() => navigate("/student/home")}>
+    <div className="college-suggestions-page">
+      <header className="college-suggestions-header">
+        <button className="college-suggestions-logo" onClick={() => navigate("/student/home")}>
+          Omni<span>Campus</span>
+        </button>
+        <button className="college-suggestions-back" onClick={() => navigate("/student/home")}>
           <ArrowLeft size={16} /> Back to Dashboard
         </button>
-        <div className="nav-brand" style={{ textAlign: "right" }}>
-          <span className="brand-title">Suggestions &amp; Requests</span>
-          <span className="brand-subtitle">{collegeName}</span>
-        </div>
       </header>
 
-      <div className="student-dashboard-content" style={{ maxWidth: "900px" }}>
-        <section className="welcome-banner" style={{ marginBottom: "2rem" }}>
-          <h1>Voice your <em>campus needs.</em></h1>
-          <p>Submit resource requests, infrastructure feedback, or event suggestions directly to your college network.</p>
-        </section>
+      <main className="college-suggestions-main">
+        <span className="college-suggestions-kicker">CAMPUS VOICE &amp; RESOURCES</span>
+        <div className="college-suggestions-heading">
+          <h1>Suggestions &amp; <em>Requests</em></h1>
+          <p>Voice campus improvements, request facilities, or submit feedback directly to your college administration.</p>
+        </div>
 
-        <form onSubmit={handleSubmit} className="tile-card" style={{ maxWidth: "100%", cursor: "default", marginBottom: "3rem", padding: "2rem" }}>
-          <h3 style={{ marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-            <MessageSquare size={20} color="#d4af37" /> Create New Submission
+        <form onSubmit={handleSubmit} className="college-suggestions-card" style={{ marginBottom: "40px" }}>
+          <h3 style={{ marginBottom: "20px", display: "flex", alignItems: "center", gap: "10px", fontSize: "18px" }}>
+            <MessageSquare size={20} color="#3568d4" /> New Submission
           </h3>
 
-          <div style={{ marginBottom: "1.25rem" }}>
-            <label style={{ display: "block", fontSize: "0.85rem", color: "#94a3b8", marginBottom: "0.5rem" }}>Submission Type</label>
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{ display: "block", fontSize: "12px", fontWeight: "700", marginBottom: "8px" }}>Type</label>
             <select 
               value={type} 
               onChange={(e) => setType(e.target.value)}
-              style={{ width: "100%", padding: "0.75rem", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "8px", color: "#fff" }}
+              style={{ width: "100%", padding: "12px", border: "1px solid #dce3ed", borderRadius: "8px", background: "#fbfcfe", color: "#0b1d3a", fontFamily: "inherit" }}
             >
-              <option value="Suggestion" style={{ background: "#090d16" }}>Campus Suggestion</option>
-              <option value="Resource Request" style={{ background: "#090d16" }}>Resource Request</option>
-              <option value="Infrastructure" style={{ background: "#090d16" }}>Infrastructure Issue</option>
+              <option value="Suggestion">Campus Suggestion</option>
+              <option value="Resource Request">Resource Request</option>
+              <option value="Infrastructure">Infrastructure Issue</option>
             </select>
           </div>
 
-          <div style={{ marginBottom: "1.25rem" }}>
-            <label style={{ display: "block", fontSize: "0.85rem", color: "#94a3b8", marginBottom: "0.5rem" }}>Title</label>
+          <div style={{ marginBottom: "20px" }}>
+            <label style={{ display: "block", fontSize: "12px", fontWeight: "700", marginBottom: "8px" }}>Title</label>
             <input 
               type="text" 
-              placeholder="Brief summary of your suggestion or request" 
+              placeholder="Brief summary..." 
               value={title} 
               onChange={(e) => setTitle(e.target.value)}
               required
-              style={{ width: "100%", padding: "0.75rem", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "8px", color: "#fff", boxSizing: "border-box" }}
+              style={{ width: "100%", padding: "12px", border: "1px solid #dce3ed", borderRadius: "8px", background: "#fbfcfe", color: "#0b1d3a", fontFamily: "inherit", boxSizing: "border-box" }}
             />
           </div>
 
-          <div style={{ marginBottom: "1.5rem" }}>
-            <label style={{ display: "block", fontSize: "0.85rem", color: "#94a3b8", marginBottom: "0.5rem" }}>Description</label>
+          <div style={{ marginBottom: "25px" }}>
+            <label style={{ display: "block", fontSize: "12px", fontWeight: "700", marginBottom: "8px" }}>Description</label>
             <textarea 
               rows="4" 
-              placeholder="Provide clear details..." 
+              placeholder="Detailed explanation..." 
               value={description} 
               onChange={(e) => setDescription(e.target.value)}
               required
-              style={{ width: "100%", padding: "0.75rem", background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "8px", color: "#fff", boxSizing: "border-box", resize: "vertical" }}
+              style={{ width: "100%", padding: "12px", border: "1px solid #dce3ed", borderRadius: "8px", background: "#fbfcfe", color: "#0b1d3a", fontFamily: "inherit", boxSizing: "border-box", resize: "vertical" }}
             />
           </div>
 
-          <button type="submit" disabled={submitting} className="tile-action" style={{ background: "#d4af37", color: "#090d16", border: "none", padding: "0.75rem 1.5rem", borderRadius: "8px", fontWeight: "600", cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "0.5rem" }}>
-            <Send size={16} /> {submitting ? "Submitting..." : "Submit to College"}
+          <button type="submit" disabled={submitting} style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "12px 20px", background: "#0b1d3a", color: "#fff", border: "0", borderRadius: "8px", fontWeight: "700", cursor: "pointer" }}>
+            <Send size={16} /> {submitting ? "Submitting..." : "Submit Request"}
           </button>
 
           {message && (
-            <p style={{ marginTop: "1rem", color: message.startsWith("Error") ? "#ef4444" : "#059669", fontSize: "0.9rem" }}>
+            <p style={{ marginTop: "15px", color: message.startsWith("Error") ? "#ef4444" : "#198568", fontSize: "13px", fontWeight: "700" }}>
               {message}
             </p>
           )}
         </form>
 
-        <h2 className="section-heading">Recent Submissions ({requests.length})</h2>
-        <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>
+        <div className="college-suggestions-section-heading">
+          <h2>Recent Submissions ({requests.length})</h2>
+          <span>{collegeName}</span>
+        </div>
+
+        <div className="college-suggestions-list">
           {requests.length === 0 ? (
-            <p style={{ color: "#64748b" }}>No submissions yet for {collegeName}.</p>
+            <div className="college-suggestions-empty">
+              <h3>No submissions yet</h3>
+              <p>Be the first to voice a suggestion or request for your college.</p>
+            </div>
           ) : (
             requests.map((req, idx) => (
-              <div key={req.id || idx} className="tile-card" style={{ maxWidth: "100%", cursor: "default" }}>
-                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.5rem" }}>
-                  <span className="badge">{req.type}</span>
-                  <span style={{ fontSize: "0.75rem", color: "#64748b" }}>{new Date(req.createdAt).toLocaleDateString()}</span>
+              <div key={req.id || idx} className="college-suggestions-card">
+                <div className="college-suggestions-card-top">
+                  <span className="college-suggestions-id">{req.type}</span>
+                  <span className="college-suggestions-status">{new Date(req.createdAt).toLocaleDateString()}</span>
                 </div>
-                <h4 style={{ color: "#fff", fontSize: "1.1rem", marginBottom: "0.5rem" }}>{req.title}</h4>
-                <p style={{ color: "#94a3b8", fontSize: "0.9rem", marginBottom: "1rem" }}>{req.description}</p>
-                <div className="tile-footer">
-                  <span>Submitted by: {req.author}</span>
-                  <span style={{ color: "#d4af37" }}><Building2 size={14} style={{ display: "inline", marginRight: "4px" }} />{req.collegeName}</span>
+                <h3 style={{ margin: "12px 0 8px", fontSize: "17px" }}>{req.title}</h3>
+                <p className="college-suggestions-text">{req.description}</p>
+                <div className="college-suggestions-card-bottom">
+                  <span style={{ fontSize: "12px", color: "#64748b" }}>By: {req.author}</span>
+                  <span style={{ fontSize: "12px", color: "#3568d4", fontWeight: "600" }}><Building2 size={13} style={{ display: "inline", marginRight: "4px" }} />{req.collegeName}</span>
                 </div>
               </div>
             ))
           )}
         </div>
-      </div>
-    </main>
+      </main>
+
+      <footer className="college-suggestions-footer">
+        <strong>Omni<span>Campus</span></strong>
+        <span>© {new Date().getFullYear()} OmniCampus. All rights reserved.</span>
+      </footer>
+    </div>
   );
 }
